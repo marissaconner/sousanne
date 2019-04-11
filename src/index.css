@@ -1,4 +1,207 @@
+/* reset */
+
 * {
   margin: 0;
   padding: 0;
 }
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -webkit-transition: 0.25s ease-in-out;
+}
+a:hover {
+  transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -webkit-transition: 0.25s ease-in-out;
+}
+
+/* Grid assets */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0 0 50px 0; /* footer height */
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+}
+
+.container-reading {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row,
+.column {
+  float: left;
+  box-sizing: border-box;
+}
+.row {
+  padding: 1em;
+  width: 100%;
+  clear: both;
+}
+
+.column {
+  padding: 1em;
+}
+
+.half {
+  width: 50%;
+}
+
+.third {
+  width: 33.3%;
+}
+.twothirds {
+  width: 66.6%;
+}
+
+.fourth {
+  width: 25%;
+}
+.threefourths {
+  width: 75%;
+}
+
+.fifth {
+  width: 20%;
+}
+.twofifths {
+  width: 40%;
+}
+
+.threefifths {
+  width: 60%;
+}
+
+.fourfifths {
+  width: 80%;
+}
+
+.sixth {
+  width: 16.66%;
+}
+.fivesixths {
+  width: 83.3%;
+}
+/* End grid assets */
+
+/* Alignment Assets */
+
+.flushleft {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.flushall {
+  margin: 0;
+  padding: 0;
+}
+
+.flushright {
+  padding-right: 0;
+  margin-right: 0;
+}
+
+.flushtop {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.flushbottom {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.floatleft {
+  float: left;
+}
+
+.floatright {
+  float: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.rjust {
+  text-align: right;
+}
+
+.ljust {
+  text-align: left;
+}
+
+.ucstr {
+  text-transform: uppercase;
+}
+
+.centerinline {
+  vertical-align: middle;
+}
+
+.inlineblock {
+  display: inline-block;
+}
+
+/* End Alignments*/
+
+/* Type */
+html {
+  font-size: 16px;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+footer {
+  padding: 0.75em 0;
+  line-height: 150%;
+}
+
+.big {
+  font-size: 125%;
+}
+
+.bigger {
+  font-size: 200%;
+}
+
+.biggest {
+  font-size: 250%;
+}
+
+.small {
+  font-size: 87.5%;
+}
+
+.smaller {
+  font-size: 75%;
+}
+
+.smallest {
+  font-size: 62.5%;
+}
+/* End Type */
