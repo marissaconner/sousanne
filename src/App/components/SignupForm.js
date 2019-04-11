@@ -6,12 +6,14 @@ class SignupForm extends Component {
     this.state = {
       hidePassword: true
     }
-  }
+    this.togglePassword = this.togglePassword.bind(this);
+  };
+
   togglePassword(){
     this.setState({
       hidePassword: !this.state.hidePassword
     })
-  }
+  };
 
   render(){
     return(
@@ -27,8 +29,8 @@ class SignupForm extends Component {
       </div>
       <div className='form-group'>
         <label for='signup-password'>Password</label>
-        <span class='eyeball'>Show</span>
-        <input type='password' id='signup-password' name='signup-password' />
+        <span class='eyeball' onClick={this.togglePassword}>{this.state.hidePassword ? 'Show' : 'Hide'}</span>
+        <input type={ this.state.hidePassword ? 'password' : 'text' } id='signup-password' name='signup-password' />
       </div>
       <button>Create Account</button>
     </form>
