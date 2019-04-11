@@ -4,7 +4,7 @@ import SignupForm from './App/components/SignupForm.js';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
       <SignupForm />
       </div>
     );

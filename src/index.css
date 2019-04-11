@@ -1,8 +1,27 @@
+/* variables */
+:root {
+  --rich-black: #004040;
+  --text-on-dark: rgba(255, 255, 255, 0.75);
+  --text-on-light: rgba(0, 0, 0, 0.75);
+  --primary: #43c298;
+  --primary-dark: #3ab28a;
+  --primary-darker: #27785d;
+  --primary-light: #6acead;
+  --primary-lighter: #90dbc2;
+  --complement: #c2436d;
+  --analogous-a: #43c259;
+  --analogous-b: #43adc2;
+  --splitcomp-a: #c25943;
+  --splitcomp-b: #c243ad;
+}
+
 /* reset */
 
 * {
   margin: 0;
   padding: 0;
+  color: var(--rich-black);
+  font-family: Lato, sans-serif;
 }
 
 ul {
@@ -45,6 +64,7 @@ footer {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 1em;
 }
 
 .row,
@@ -205,3 +225,29 @@ footer {
   font-size: 62.5%;
 }
 /* End Type */
+
+/* Forms */
+.formgroup {
+  display: block;
+}
+input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+}
+
+button {
+  padding: 0.5em;
+  border-radius: 2px;
+  border: 1px solid var(--primary-dark);
+  color: var(--text-on-dark);
+  background-color: var(--primary);
+  letter-spacing: 0.66px;
+  outline: 5px solid var(--primary-lighter);
+}
+button:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+}
+button:focus {
+}
