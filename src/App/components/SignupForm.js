@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const SignupForm = () => (
-    <form>
+class SignupForm extends Component {
+  constructor( props ){
+    super( props )
+    this.state = {
+      hidePassword: true
+    }
+  }
+  togglePassword(){
+    this.setState({
+      hidePassword: !this.state.hidePassword
+    })
+  }
+
+  render(){
+    return(
+  <form>
       <h2>Create Account</h2>
-      <p>Lorem ipsum value reminder text for signing in trusssst in meeee</p>  
+      <p>
+        Eating well doesn't have to mean breaking the bank.  Create an account to save time and money through Sousanne's budget-conscious recipes, price books, and generated mealplans. 
+      </p>
+
       <div className='form-group'>
         <label for='signup-email'>Email</label>
         <input type='text' placeholder='email@address.com' id='signup-email' name='signup-email'/>
@@ -14,11 +31,9 @@ const SignupForm = () => (
         <input type='password' id='signup-password' name='signup-password' />
       </div>
       <button>Create Account</button>
-      <hr />
-      <p>Or sign up with...</p>
-      <a href="#">Facebook</a>
-      <a href="#">Google</a>
     </form>
   )
+  }
+}
 
 export default SignupForm;

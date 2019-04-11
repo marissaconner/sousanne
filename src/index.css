@@ -227,8 +227,9 @@ footer {
 /* End Type */
 
 /* Forms */
-.formgroup {
+.form-group {
   display: block;
+  padding: 0.5em 0;
 }
 input {
   display: block;
@@ -236,8 +237,12 @@ input {
   padding: 10px;
 }
 
+label {
+  font-weight: 700;
+}
+
 button {
-  padding: 0.5em;
+  padding: 10px;
   border-radius: 2px;
   border: 1px solid var(--primary-dark);
   color: var(--text-on-dark);
