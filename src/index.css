@@ -13,6 +13,8 @@
   --analogous-b: #43adc2;
   --splitcomp-a: #c25943;
   --splitcomp-b: #c243ad;
+  --gray-dark: #a4a4a4;
+  --gray: #f0f0f0;
 }
 
 /* reset */
@@ -237,18 +239,38 @@ input {
   padding: 10px;
 }
 
+.pin {
+  position: absolute;
+}
+.pin-right {
+  right: 0;
+}
 label {
   font-weight: 700;
+}
+
+button.disabled,
+button.disabled:hover,
+button.disabled:focus {
+  border: 1px solid var(--gray-dark);
+  color: rgba(0, 0, 0, 0.5);
+  background-color: var(--gray);
+}
+
+button.primary {
+  border: 1px solid var(--primary-dark);
+  color: var(--text-on-dark);
+  background-color: var(--primary);
+}
+
+button:focus {
+  outline: 5px solid var(--primary-lighter);
 }
 
 button {
   padding: 10px;
   border-radius: 2px;
-  border: 1px solid var(--primary-dark);
-  color: var(--text-on-dark);
-  background-color: var(--primary);
   letter-spacing: 0.66px;
-  outline: 5px solid var(--primary-lighter);
 }
 button:hover {
   background-color: var(--primary-light);

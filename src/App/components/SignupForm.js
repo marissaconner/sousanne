@@ -4,7 +4,10 @@ class SignupForm extends Component {
   constructor( props ){
     super( props )
     this.state = {
-      hidePassword: true
+      hidePassword: true,
+      formValid: false,
+      emailValid: false,
+      passwordValid: false
     }
     this.togglePassword = this.togglePassword.bind(this);
   };
@@ -29,10 +32,10 @@ class SignupForm extends Component {
       </div>
       <div className='form-group'>
         <label for='signup-password'>Password</label>
-        <span class='eyeball' onClick={this.togglePassword}>{this.state.hidePassword ? 'Show' : 'Hide'}</span>
+        <span class='pin pin-right' onClick={this.togglePassword}>{this.state.hidePassword ? 'Show' : 'Hide'}</span>
         <input type={ this.state.hidePassword ? 'password' : 'text' } id='signup-password' name='signup-password' />
       </div>
-      <button>Create Account</button>
+      <button className={ this.state.formValid ? 'primary' : 'disabled' } disabled={!this.state.formValid}>Create Account</button>
     </form>
   )
   }
