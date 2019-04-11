@@ -6,11 +6,21 @@ class SignupForm extends Component {
     this.state = {
       hidePassword: true,
       formValid: false,
+      signupEmail: '',
+      signupPassword: '',
       emailValid: false,
       passwordValid: false
     }
     this.togglePassword = this.togglePassword.bind(this);
+    this.handleEmailInput = this.handleEmailInput.bind(this);
+    this.handlePasswordInput = this.handlePasswordInput.bind(this);
   };
+
+  handleEmailInput(){
+  }
+
+  handlePasswordInput(){
+  }
 
   togglePassword(){
     this.setState({
@@ -28,12 +38,30 @@ class SignupForm extends Component {
 
       <div className='form-group'>
         <label for='signup-email'>Email</label>
-        <input type='text' placeholder='email@address.com' id='signup-email' name='signup-email'/>
+        <input
+          type='text' 
+          placeholder='email@address.com'
+          value={this.state.signupEmail}
+          id='signup-email' 
+          name='signup-email'
+          onChange = {() => this.handleEmailInput()}
+        />
       </div>
+
       <div className='form-group'>
         <label for='signup-password'>Password</label>
-        <span class='pin pin-right' onClick={this.togglePassword}>{this.state.hidePassword ? 'Show' : 'Hide'}</span>
-        <input type={ this.state.hidePassword ? 'password' : 'text' } id='signup-password' name='signup-password' />
+        <span 
+          class='pin pin-right' 
+          onClick={this.togglePassword}>
+            {this.state.hidePassword ? 'Show' : 'Hide'}
+        </span>
+        <input 
+          type={ this.state.hidePassword ? 'password' : 'text' }
+          value={this.state.signupPassword}
+          id='signup-password'
+          name='signup-password'
+          onChange = {() => this.handlePasswordInput()}
+        />
       </div>
       <button className={ this.state.formValid ? 'primary' : 'disabled' } disabled={!this.state.formValid}>Create Account</button>
     </form>
