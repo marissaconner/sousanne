@@ -13,7 +13,7 @@ const warnUnsetVars = function ( vars ){
   vars.forEach( function( envVar ){
     if( !process.env[envVar] ) {
       didWarn = true;
-      warningString += '\n You have not set your' + envVar + 'environment variable! Please set it! You can use `export ' + envVar + '=<text>` to set it.';
+      warningString += '\n You have not set your ' + envVar + 'environment variable! Please set it! You can use `export ' + envVar + '=<text>` to set it.';
     }
   });
   if( didWarn ){
@@ -23,7 +23,7 @@ const warnUnsetVars = function ( vars ){
 
 warnUnsetVars( ['PORT' , 'JWT_SECRET' , 'SQLUSER' , 'SQLPASSWORD' , 'SQLPORT' , 'SQLDATABASE' ] );
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'shamalamadingdong'; 
-app.set( 'port', process.env.SQLPORT || 3000 );
+app.set( 'port', process.env.SQLPORT || 3001 );
 
 /* If force_truncate is true, Sequelize will be instructed to drop all tables and re-add them when the server starts. */
 if( process.env.FORCE_TRUNCATE === 'true' ){
