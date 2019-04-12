@@ -1,49 +1,20 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-class Homepage extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      list: []
-    }
-  }
 
-  componentDidMount(){
-    this.getList();
-  }
-
-  getList = () =>{
-    fetch('/api/getList')
-    .then( res => res.json())
-    .then( list => this.setState({ list }))
-  }
-
-  render(){
-    const { list } = this.state;
-
-    return(
-      <div>
-        <h1>
-          Homepage
-        </h1>
-        <p>Lorem ipsum</p>
-        { list.length ? (
-           <div>
-           {list.map((item) => {
-            return (
-              <div>
-                  {item}
-              </div>
-              );
-           })}
-           </div>
-          ) : (
-            <div>Yeah that didn't work.</div>
-          )
-        }
-      </div>
+class Home extends Component {
+  render() {
+    return (
+    <div className="App">
+      <h1>Click For That List</h1>
+      {/* Link to List.js */}
+      <Link to={'./list'}>
+        <button variant="raised">
+            My List
+        </button>
+      </Link>
+    </div>
     );
   }
 }
-
-export default Homepage;
+export default Home;
