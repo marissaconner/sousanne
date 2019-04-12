@@ -87,12 +87,27 @@ class SignupForm extends Component {
 
   render(){
     return(
-  <form noValidate>
-      <h2>Create Account</h2>
-      <p>
-        Eating well doesn't have to mean breaking the bank.  Create an account to save time and money through Sousanne's budget-conscious recipes, price books, and generated mealplans. 
-      </p>
+      <div className='container-reading'>
+      <div id="masthead">
+        <h1>Sousanne</h1>
+        <span>
+          Eat healthy on a dime.
+        </span>
+      </div>
 
+  <div className="tab-group">
+      <div className="tab active">
+        Sign Up
+      </div>
+      <div className="tab">
+        Log In
+      </div>
+  </div>
+
+  <form noValidate>
+
+  
+      <h2>Create Account</h2>
       <div className='form-group'>
         <label for='signup-email'>Email</label>
         <input
@@ -106,24 +121,27 @@ class SignupForm extends Component {
       </div>
 
       <div className='form-group pinned-content'>
-        <label for='signup-password'>Password <span className='regular'>(8 characters or more)</span></label>
+        <label for='signup-password'>Password</label>
         <span 
-          class='pin pin-right' 
+          className='pin pin-right bold primary cursor-pointer' 
           onClick={this.togglePassword}>
             {this.state.hidePassword ? 'Show' : 'Hide'}
         </span>
         <input 
           type={ this.state.hidePassword ? 'password' : 'text' }
           value={this.state.password}
+          placeholder="The longer, the safer!"
           id='signup-password'
           name='password'
           onChange = {this.handleInput}
         />
+        <p className="helptext">8 characters or more</p>
       </div>
       <div className='form-group'>
       <button className={ this.state.formValid ? 'primary full-width' : 'disabled full-width' } disabled={!this.state.formValid}>Create Account</button>
       </div>
     </form>
+    </div>
   )
   }
 }
