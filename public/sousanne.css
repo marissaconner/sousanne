@@ -1,0 +1,126 @@
+/* pages */
+/* signup */
+#splash {
+  background-color: var(--analogous-a);
+  background-image: url("./img/landing-bg-desktop.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 auto;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+form {
+  background-color: var(--text-on-dark);
+  padding: 1em;
+  border-radius: 2px;
+}
+
+#masthead {
+  margin: 1.5rem auto;
+  text-align: center;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+}
+#masthead h1 {
+  font-size: 4em;
+  font-weight: 900;
+  color: #ffffff;
+  font-family: "Happy Monkey", Raleway, sans-serif;
+  letter-spacing: 3px;
+  margin: 0;
+  padding: 0;
+}
+#masthead span {
+  font-size: 2em;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+#splash form {
+  max-width: 960px;
+  margin: 0 auto;
+  border: 2px solid var(--primary-lighter);
+  border-top: none;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 800px) {
+  #splash {
+    background-image: url("./img/landing-bg-mobile.jpg");
+  }
+
+  #masthead h1 {
+    font-size: 3em;
+  }
+  #masthead span {
+    font-size: 1.5em;
+  }
+  .container-reading {
+    margin: 1em auto;
+    padding: 1em;
+  }
+}
+
+.tab-group {
+  color: var(--text-on-light);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.tab:hover {
+  letter-spacing: 2px;
+  cursor: pointer;
+  cursor: hand;
+  transition: 0.15s ease-in-out;
+  -moz-transition: 0.15s ease-in-out;
+  -webkit-transition: 0.15s ease-in-out;
+}
+.tab {
+  text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  padding: 10px 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 2px solid var(--primary-lighter);
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: 0.15s ease-in-out;
+  -moz-transition: 0.15s ease-in-out;
+  -webkit-transition: 0.15s ease-in-out;
+}
+.tab.active {
+  color: var(--primary-darker);
+  background-color: var(--text-on-dark);
+  border: 2px solid var(--primary-lighter);
+  border-bottom: none;
+  text-shadow: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  background: var(--text-on-dark);
+  border: 1px solid var(--analogous-b);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  background: red;
+}
+
+input:active,
+input:focus {
+  border: 1px solid var(--analogous-b);
+  box-shadow: 0 0 0 3px var(--analogous-b);
+}
