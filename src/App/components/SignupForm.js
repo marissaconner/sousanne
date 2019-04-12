@@ -107,9 +107,37 @@ class SignupForm extends Component {
   <form noValidate>
 
   
+      <h2>Log In</h2>
+      <div className='form-group'>
+        <label htmlFor='login-email'>Email</label>
+        <input
+          type='email'
+          placeholder='email@address.com'
+          id='login-email'
+          value = {this.state.email}
+          name = 'email'
+          onChange = {this.handleInput}
+        />
+      </div>
+
+      <div className='form-group'>
+        <label htmlFor='login-password'>Password</label>
+        <input
+          type='password'
+          id='login-password'
+          value={this.state.password}
+          name = 'password'
+          onChange = {this.handleInput}
+        />
+      </div>
+
+      <div className = 'form-group'>
+      <button className = {this.state.formValid ? 'primary full-width' : 'disabled full-width' } disabled={!this.state.formValid}>Log In</button>
+      </div>
+
       <h2>Create Account</h2>
       <div className='form-group'>
-        <label for='signup-email'>Email</label>
+        <label htmlFor='signup-email'>Email</label>
         <input
           type='email'
           placeholder='email@address.com'
@@ -121,7 +149,7 @@ class SignupForm extends Component {
       </div>
 
       <div className='form-group pinned-content'>
-        <label for='signup-password'>Password</label>
+        <label htmlFor='signup-password'>Password</label>
         <span 
           className='pin pin-right bold primary cursor-pointer' 
           onClick={this.togglePassword}>
