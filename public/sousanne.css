@@ -1,8 +1,8 @@
-f/* pages */
+/* pages */
 /* signup */
 #splash {
   background-color: var(--analogous-a);
-  background-image: url("./img/landing-bg-desktop.jpg");
+  background-image: url("/img/landing-bg-desktop.jpg");
   background-repeat: no-repeat;
   background-position: center;
   margin: 0 auto;
