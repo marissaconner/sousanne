@@ -15,10 +15,13 @@ class SignupLoginPage extends Component {
       formErrors: {
         email: "",
         password: ""
-      }
+      },
+      formAction: 'signup'
     }
     this.togglePassword = this.togglePassword.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.doSignup = this.doSignup.bind(this);
+    this.doLogin = this.doLogin.bind(this);
   };
 
   hasErrorClass(error) {
@@ -33,6 +36,15 @@ class SignupLoginPage extends Component {
         this.state.passwordValid
     });
   }
+
+  doSignup(){
+    this.setState({ formAction: 'signup' })
+  }
+
+  doLogin(){
+    this.setState({ formAction: 'login' })
+  }
+
 
   handleInput = e => {
     const name = e.target.name;
@@ -98,38 +110,39 @@ class SignupLoginPage extends Component {
       </div>
 
   <div className="tab-group">
-      <div className="tab active">
+      <div className="tab active" onClick={this.doSignup}>
         Sign Up
       </div>
-      <div className="tab">
+      <div className="tab" onClick={this.doLogin}>
         Log In
       </div>
   </div>
 
   <form noValidate>
-
-      <div className = 'form-group'>
-      <button className = {this.state.formValid ? 'primary full-width' : 'disabled full-width' } disabled={!this.state.formValid}>Log In</button>
-      </div>
-
-      <LoginForm 
-        handleInput={this.handleInput} 
-        emailString={this.state.email} 
-        passwordString={this.state.password}
-      />
-
-      <h2>Create Account</h2>
-
-      <SignupForm 
-        handleInput={this.handleInput}
-        emailString={this.state.email}
-        passwordString={this.state.password}
-        togglePassword={this.togglePassword}
-        hidePassword={this.state.hidePassword}
-      />
+      {
+        this.state.formAction === 'signup' ? 
+        (
+          <SignupForm 
+            handleInput={this.handleInput}
+            emailString={this.state.email}
+            passwordString={this.state.password}
+            togglePassword={this.togglePassword}
+            hidePassword={this.state.hidePassword}
+          />
+        ) :
+        (
+          <LoginForm 
+            handleInput={this.handleInput} 
+            emailString={this.state.email} 
+            passwordString={this.state.password}
+          />
+        )
+      }      
      
       <div className='form-group'>
-      <button className={ this.state.formValid ? 'primary full-width' : 'disabled full-width' } disabled={!this.state.formValid}>Create Account</button>
+        <button className={ this.state.formValid ? 'primary full-width' : 'disabled full-width' } disabled={!this.state.formValid}>
+        {this.state.formAction === 'signup' ? 'Create Account' : 'Log In' }
+        </button>
       </div>
     </form>
     </div>

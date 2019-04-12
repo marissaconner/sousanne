@@ -2,6 +2,10 @@ import React from 'react';
 
 const SignupForm = ({ emailString, passwordString, handleInput, togglePassword, hidePassword }) => 
  <div>
+   <h2>Sign Up</h2>
+   <p>
+     Save time and money with Sousanne's budget-conscious meal plans, price books, and recipes.
+   </p>
        <div className='form-group'>
         <label htmlFor='signup-email'>Email</label>
         <input

@@ -1,7 +1,9 @@
 import React from 'react';
 
 const LoginForm = ({ emailString, passwordString, handleInput }) => 
- <div>
+  <div>
+    <h2>Welcome Back</h2>
+    <p>Sign in to get back to saving money with healthy meals!</p>
       <div className='form-group'>
         <label htmlFor='login-email'>Email</label>
         <input
