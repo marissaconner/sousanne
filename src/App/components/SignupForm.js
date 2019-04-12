@@ -105,7 +105,7 @@ class SignupForm extends Component {
         />
       </div>
 
-      <div className='form-group'>
+      <div className='form-group pinned-content'>
         <label for='signup-password'>Password <span className='regular'>(8 characters or more)</span></label>
         <span 
           class='pin pin-right' 
@@ -120,7 +120,9 @@ class SignupForm extends Component {
           onChange = {this.handleInput}
         />
       </div>
-      <button className={ this.state.formValid ? 'primary' : 'disabled' } disabled={!this.state.formValid}>Create Account</button>
+      <div className='form-group'>
+      <button className={ this.state.formValid ? 'primary full-width' : 'disabled full-width' } disabled={!this.state.formValid}>Create Account</button>
+      </div>
     </form>
   )
   }

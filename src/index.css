@@ -24,6 +24,12 @@
   padding: 0;
   color: var(--rich-black);
   font-family: Lato, sans-serif;
+  box-sizing: border-box;
+}
+#root,
+html,
+body {
+  height: 100%;
 }
 
 ul {
@@ -48,7 +54,7 @@ html {
 }
 
 body {
-  margin: 0 0 50px 0; /* footer height */
+  margin: 0 0 0 0; /* footer height */
 }
 
 footer {
@@ -202,8 +208,16 @@ h4,
 h5,
 h6,
 footer {
-  padding: 0.75em 0;
-  line-height: 150%;
+  line-height: 1.5em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary-darker);
 }
 
 .big {
@@ -229,6 +243,11 @@ footer {
 .smallest {
   font-size: 62.5%;
 }
+
+.full-width {
+  display: block;
+  width: 100%;
+}
 /* End Type */
 
 /* Forms */
@@ -240,6 +259,10 @@ input {
   display: block;
   width: 100%;
   padding: 10px;
+}
+
+.pinned-content {
+  position: relative;
 }
 
 .pin {
@@ -279,6 +302,4 @@ button {
 button:hover {
   background-color: var(--primary-light);
   border-color: var(--primary);
-}
-button:focus {
 }
