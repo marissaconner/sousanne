@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import SignupLoginPage from './App/components/SignupLoginPage.js';
+import SignupLoginPage from './App/pages/SignupLoginPage.js';
 import Homepage from './App/pages/Homepage.js';
 import List from './App/pages/List.js';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import LoginForm from './LoginForm.js';
-import SignupForm from './SignupForm.js';
+import LoginForm from '../components/LoginForm.js';
+import SignupForm from '../components/SignupForm.js';
 
 class SignupLoginPage extends Component {
   constructor( props ){
@@ -101,6 +101,7 @@ class SignupLoginPage extends Component {
 
   render(){
     return(
+      <div id="splash">
       <div className='container-reading'>
       <div id="masthead">
         <h1>Sousanne</h1>
@@ -145,6 +146,7 @@ class SignupLoginPage extends Component {
         </button>
       </div>
     </form>
+    </div>
     </div>
   )
   }
