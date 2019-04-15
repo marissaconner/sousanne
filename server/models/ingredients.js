@@ -6,8 +6,12 @@ module.exports = function( sequelize, DataTypes ) {
       type: DataTypes.STRING(250),
       unique: true,
     },
+    parentId: {
+      type: DataTypes.INTEGER,
+      hierarchy: true
+    },
     tableName: 'ingredients',
-    
-  });
+    });
+
   return Ingredient;
 };
