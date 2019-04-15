@@ -10,4 +10,10 @@ module.exports = function( models ) {
       user_type: 1
     }
   });
+
+  models.Ingredient.findOrCreate({
+    where: {
+      name: 'ABCDEFG'
+    }
+  })
 }

@@ -9,9 +9,16 @@ module.exports = function( sequelize, DataTypes ) {
     parentId: {
       type: DataTypes.INTEGER,
       hierarchy: true
+    }
     },
+    {
     tableName: 'ingredients',
-    });
+    classMethods: {
+      associate: function( models ) {
+          Ingredient.belongsToMany( models.Ingredient, { as: 'component', through: 'ingredients_ingredients'});
+      }
+    }
+  });
 
   return Ingredient;
 };
