@@ -51,6 +51,7 @@ module.exports = function( sequelize, DataTypes ) {
     },
     classMethods: {
       associate: function( models ) {
+        User.belongsToMany(models.Ingredient, {through: 'users_ingredients_restrictions' })
       }
     },
     tableName: 'users'

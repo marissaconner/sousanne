@@ -37,9 +37,9 @@ if( process.env.FORCE_TRUNCATE === 'true' ){
 models.sequelize.sync(sequelizeOptions).then( () => {
   var server = http.listen( app.get( 'sqlport' ), () => {
     console.log( 'SQL server on ' + server.address().port );
-    if(process.env.USE_INIT_TABLE_DATA === 'true') {
+    //if(process.env.USE_INIT_TABLE_DATA === 'true') {
       initTableData(models);
-    }
+    //}
   });
 })
 .catch( ( error ) => {

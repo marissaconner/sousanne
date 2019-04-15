@@ -15,7 +15,7 @@ module.exports = function( sequelize, DataTypes ) {
     tableName: 'ingredients',
     classMethods: {
       associate: function( models ) {
-          Ingredient.belongsToMany( models.Ingredient, { as: 'component', through: 'ingredients_ingredients'});
+          Ingredient.belongsToMany( models.Ingredient, { through: 'ingredients_ingredients'});
       }
     }
   });

@@ -2,18 +2,31 @@
 
 module.exports = function( models ) {
   
-  models.User.findOrCreate({ 
+
+  models.Ingredient.findOrCreate({
     where: {
-      username: 'testuser',
-      password: '12345678',
-      email: 'marissafromtexas@gmail.com',
-      user_type: 1
+      name: 'Pork'
     }
   });
 
   models.Ingredient.findOrCreate({
     where: {
-      name: 'ABCDEFG'
+      name: 'Shellfish'
+    }
+  });
+
+  models.User.findOrCreate({ 
+    where: {
+      username: 'kosheruser',
+      password: '12345678',
+      email: 'marissafromtexas@gmail.com',
+      user_type: 1
     }
   })
+  .then( function( addrestriction ){
+    models.Ingredient.findOrCreate({name: 'Pork'}).then( function( restriction ){
+      addrestriction.addTag( restriction );
+    });
+  });
+
 }
