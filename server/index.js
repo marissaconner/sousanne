@@ -21,20 +21,22 @@ const warnUnsetVars = function ( vars ){
   }
 }
 
+
 warnUnsetVars( ['PORT' , 'JWT_SECRET' , 'SQLUSER' , 'SQLPASSWORD' , 'SQLPORT' , 'SQLDATABASE' ] );
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'shamalamadingdong'; 
-app.set( 'port', process.env.SQLPORT || 3001 );
+app.set( 'sqlport', process.env.SQLPORT || 3001 );
 
 /* If force_truncate is true, Sequelize will be instructed to drop all tables and re-add them when the server starts. */
+
 if( process.env.FORCE_TRUNCATE === 'true' ){
   sequelizeOptions.force = true;
   } else {
   sequelizeOptions.force = false;
   }
-  
+
 models.sequelize.sync(sequelizeOptions).then( () => {
-  var server = http.listen( app.get( 'port' ), () => {
-    console.log( 'Listening on ' + server.address().port );
+  var server = http.listen( app.get( 'sqlport' ), () => {
+    console.log( 'SQL server on ' + server.address().port );
     if(process.env.USE_INIT_TABLE_DATA === 'true') {
       initTableData(models);
     }
