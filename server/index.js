@@ -28,17 +28,17 @@ app.set( 'sqlport', process.env.SQLPORT || 3001 );
 
 /* If force_truncate is true, Sequelize will be instructed to drop all tables and re-add them when the server starts. */
 
-if( process.env.FORCE_TRUNCATE === 'true' ){
+//if( process.env.FORCE_TRUNCATE === 'true' ){
   sequelizeOptions.force = true;
-  } else {
-  sequelizeOptions.force = false;
-  }
+//  } else {
+//  sequelizeOptions.force = false;
+//  }
 
 models.sequelize.sync(sequelizeOptions).then( () => {
   var server = http.listen( app.get( 'sqlport' ), () => {
     console.log( 'SQL server on ' + server.address().port );
     //if(process.env.USE_INIT_TABLE_DATA === 'true') {
-      initTableData(models);
+      initTableData(models)
     //}
   });
 })

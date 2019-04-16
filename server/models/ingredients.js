@@ -1,19 +1,23 @@
 'use strict';
 
 module.exports = function( sequelize, DataTypes ) {
-  var Ingredient = sequelize.define( 'Ingredient', {
-    name: {
-      type: DataTypes.STRING(250),
-      unique: true,
-    },
-    parentId: {
-      type: DataTypes.INTEGER,
-      hierarchy: true
-    }
-    },
+  const Ingredient = sequelize.define( 'Ingredient', 
+    //attributes
     {
-    tableName: 'ingredients',
-  });
-  Ingredient.belongsToMany( Ingredient, { as: 'components', foreignKey: 'ingredient' , through: 'ingredients_self' } );
+      name: {
+        type: DataTypes.STRING(250),
+        unique: true,
+      },
+    },
+    //options
+    {
+      tableName: 'ingredients',
+    });
+
+  Ingredient.associate = function( models ){
+    models.Ingredient.belongsToMany( Ingredient, { as: 'components', foreignKey: 'ingredient' , through: 'ingredients_self' } );
+    models.Ingredient.hasOne(Ingredient, {as: 'parent'});
+  }
+  
   return Ingredient;
 };

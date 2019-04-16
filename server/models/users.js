@@ -49,13 +49,12 @@ module.exports = function( sequelize, DataTypes ) {
 
       }
     },
-    classMethods: {
-      associate: function( models ) {
-        User.belongsToMany(models.Ingredient, {through: 'users_ingredients_restrictions' })
-      }
-    },
     tableName: 'users'
   });
+
+  User.associate = function( models ){
+    models.User.belongsToMany( models.Ingredient, { as: 'restrictions', foreignKey: 'user' , through: 'ingredients_users_restrictions' } );
+  }
 
   /* Set a hook: before creating a row in the User table,
   hash the given password. Never store the raw text. */
