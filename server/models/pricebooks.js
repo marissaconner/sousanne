@@ -5,6 +5,10 @@ module.exports = function( sequelize, DataTypes ){
   //attributes
   {
     //No attributes that aren't created_at or updated_at or ID really.
+    denomination: {
+      type: DataTypes.STRING,
+      default: 'USD'
+    }
   });
 
   Pricebook.associate = function( models ){
