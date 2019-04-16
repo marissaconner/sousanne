@@ -25,20 +25,8 @@ class Recipes extends Component {
     return (
     <div>
         <h1>Browsing Recipes</h1>
-        { recipes.length ? (
-           <div>
-           {recipes.map((item) => {
-            return (
-              <div>
-                  {item}
-              </div>
-              );
-           })}
-           </div>
-          ) : (
-            <div>No recipes. {recipes.length}</div>
-          )
-        }
+        {recipes}
+        
     </div>
     );
   }

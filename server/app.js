@@ -1,13 +1,30 @@
 const express = require( 'express' );
 const path = require( 'path' );
 const app = express();
+const models = require( './models' ); 
+const Recipe = models.Recipe;
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, '/../build')));
 
 app.get('/api/getRecipes', (req,res) => {
   console.log("Recipes list requested");
-  res.json( ['test', 'test2', 'test3']);
+
+  Recipe.findOrCreate({
+    where: {
+      name: 'Nachos'
+    }
+  })
+  .then( function( data){
+    if( data === null ) {
+      res.status( 404 ).send( 'No recipes found' );
+        return null;
+      }
+      res.json( data );
+    })
+    .catch( function( err ) {
+      errorHandler( err, req, res );
+    });
 });
 
 app.get('*', (req,res) =>{
