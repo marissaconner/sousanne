@@ -53,7 +53,7 @@ module.exports = function( sequelize, DataTypes ) {
   });
 
   User.associate = function( models ){
-    models.User.belongsToMany( models.Ingredient, { as: 'restrictions', foreignKey: 'user' , through: 'ingredients_users_restrictions' } );
+    models.User.belongsToMany( models.Food, { as: 'restrictions', foreignKey: 'user' , through: 'users_foodrestrictions' } );
   }
 
   /* Set a hook: before creating a row in the User table,

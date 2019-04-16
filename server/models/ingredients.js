@@ -8,15 +8,21 @@ module.exports = function( sequelize, DataTypes ) {
         type: DataTypes.STRING(250),
         unique: true,
       },
+      amount: DataTypes.INTEGER,
+      optional: {
+        type: DataTypes.BOOLEAN,
+        default: false 
+      }
     },
     //options
     {
-      tableName: 'ingredients',
+      tableName: 'Ingredients',
     });
 
   Ingredient.associate = function( models ){
-    models.Ingredient.belongsToMany( Ingredient, { as: 'components', foreignKey: 'ingredient' , through: 'ingredients_self' } );
-    models.Ingredient.hasOne(Ingredient, {as: 'parent'});
+    models.Ingredient.belongsTo( models.Recipe, { as: 'recipe' } );
+    models.Ingredient.belongsTo( models.Food, { as: 'food' } );
+    models.Ingredient.belongsTo(    models.Unit, { as: 'unit' } );
   }
   
   return Ingredient;
