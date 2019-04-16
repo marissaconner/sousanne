@@ -8,7 +8,8 @@ module.exports = function( sequelize, DataTypes ){
   });
 
   Product.associate = function( models ){
-    models.Product.belongsToMany( models.Store, { through: 'b_products_stores' })
+    models.Product.belongsToMany( models.Store, { through: 'b_products_stores' });
+    models.Product.belongsTo( models.Package );
   }
 
   return Product;
