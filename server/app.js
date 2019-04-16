@@ -10,12 +10,10 @@ app.use(express.static(path.join(__dirname, '/../build')));
 app.get('/api/getRecipes', (req,res) => {
   console.log("Recipes list requested");
 
-  Recipe.findOrCreate({
-    where: {
-      name: 'Nachos'
-    }
+  Recipe.findAll({
+    //include things here
   })
-  .then( function( data){
+  .then( function( data ){
     if( data === null ) {
       res.status( 404 ).send( 'No recipes found' );
         return null;

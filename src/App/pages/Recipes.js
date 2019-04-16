@@ -18,15 +18,14 @@ class Recipes extends Component {
     fetch('/api/getRecipes')
     .then( res => res.json())
     .then( recipes => this.setState({ recipes }))
+    //You have an array of objects on your hands at this point
   }
 
   render() {
     const { recipes } = this.state;
     return (
     <div>
-        <h1>Browsing Recipes</h1>
-        {recipes}
-        
+        <h1>Browsing Recipes</h1>     
     </div>
     );
   }
