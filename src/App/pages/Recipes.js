@@ -15,17 +15,20 @@ class Recipes extends Component {
 
   getRecipes = () =>{
     console.log( "Fetching recipes");
+    //This is going to array of objects on your hands at this point
     fetch('/api/getRecipes')
-    .then( res => res.json())
-    .then( recipes => this.setState({ recipes }))
-    //You have an array of objects on your hands at this point
+    .then( res => res.json()) 
+    .then( recipes => this.setState({ recipes }) )
   }
 
   render() {
-    const { recipes } = this.state;
+    const recipes = this.state.recipes;
     return (
     <div>
-        <h1>Browsing Recipes</h1>     
+        <h1>Browsing Recipes</h1> 
+        <ul>
+          {recipes.map(recipe => <li>{recipe.name}</li>)}
+        </ul>
     </div>
     );
   }
