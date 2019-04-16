@@ -10,6 +10,11 @@ app.get('/api/getList', (req,res) => {
     res.json( ['milk' , 'eggs' , 'bread'] );
 });
 
+app.get('/api/getRecipes', (req,res) => {
+  console.log("Recipes list requested");
+  res.json( ['test', 'test2', 'test3']);
+});
+
 app.get('*', (req,res) =>{
   console.log('page request');
     res.sendFile(path.join(__dirname+'/../public/index.html'));
