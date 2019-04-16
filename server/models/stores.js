@@ -9,7 +9,7 @@ module.exports = function( sequelize, DataTypes ){
   });
 
   Store.associate = function( models ){
-    models.Store.belongsTo( models.User , { as: 'store' } );
+    models.Store.belongsTo( models.Pricebook , { as: 'pricebook' } );
   }
 
   return Store;
