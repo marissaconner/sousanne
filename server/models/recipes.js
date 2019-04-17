@@ -15,7 +15,8 @@ module.exports = function( sequelize, DataTypes ){
   );
 
   Recipe.associate = function( models ){
-    models.Recipe.belongsToMany( models.Instruction, { through: 'b_recipes_instructions' } );
+    models.Recipe.hasMany( models.Instruction );
+    models.Recipe.hasMany( models.Ingredient );
     models.Recipe.belongsTo( models.Cuisine, {as: 'cuisine' } );
   }
 

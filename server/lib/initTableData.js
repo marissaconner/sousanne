@@ -89,22 +89,33 @@ for( var i = 0; i < recipebook.length; i++ ){
     for( var add = 0; add < currRecipe.ingredients.length; add++ ){
       var currFood = currRecipe.ingredients[add];
       console.log('\n\n\nCURRENT INGREDIENT TO ADD:' + currFood.name );
-      
+
       models.Food.findOrCreate({
         where: {
           name: currFood.name
         }
       })
       .then( function( food ){
-        models.Ingredient.findOrCreate({
+        var fooddata = food[0];
+        models.Unit.findOrCreate(
+        {
           where: {
-            recipeId: recipedata.id,
-            foodId: food[0].id,
-            amount: currFood.amount
+            name: currFood.unit
           }
         })
-      })
-    }
+        .then(function(unit){
+          var unitdata = unit[0];
+
+            models.Ingredient.findOrCreate({
+            where: {
+              recipeId: recipedata.id,
+              foodId: fooddata.id,
+              amount: currFood.amount,
+              unitId: unitdata.id
+            }
+          })
+        })
+     });
 
     for( var step = 0; step < currRecipe.instructions.length; step++){
       var currStep = currRecipe.instructions[step];
@@ -117,10 +128,9 @@ for( var i = 0; i < recipebook.length; i++ ){
       })
     }
 
-
-  })
+  }
+});
 }
-
 
 for( var i = 0; i < fakerecipes.length; i++ ){
 models.Recipe.findOrCreate({

@@ -3,6 +3,8 @@ const path = require( 'path' );
 const app = express();
 const models = require( './models' ); 
 const Recipe = models.Recipe;
+const Ingredient = models.Ingredient;
+const Instruction = models.Instruction;
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, '/../build')));
@@ -21,7 +23,7 @@ app.get('/api/getRecipes', (req,res) => {
       res.json( data );
     })
     .catch( function( err ) {
-      errorHandler( err, req, res );
+      return err;
     });
 });
 
@@ -34,17 +36,22 @@ app.get('/api/getRecipe/:recipe', (req,res)=>{
   Recipe.findOne({
     where: {
       name: safeinput
-    }
+    },
+    include: [ 
+      Instruction, 
+      Ingredient
+    ]
   })
-  .then( function( data ){
-    if( data === null ){
-      res.status( 404 ).send( 'No such recipe' );
+  .then( function( recipe ){
+    if( recipe === null ){
+      res.status( 404 ).send( 'No such recipe' + recipe );
       return null;
     }
-    res.json( data );
+
+    res.json( recipe );
   })
   .catch( function( err ){
-    errorHandler( err, req, res );
+    res.status( 404 ).send( 'No such recipe' + err );
   })
 });
 
