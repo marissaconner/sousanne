@@ -8,7 +8,8 @@ module.exports = function( sequelize, DataTypes ){
     drink: {
       type: DataTypes.BOOLEAN,
       default: false
-    }
+    },
+    preheat: DataTypes.INTEGER
   },
   //options
   );
