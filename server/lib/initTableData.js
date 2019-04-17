@@ -45,5 +45,29 @@ models.Unit.findOrCreate({
   })
 }
 
+models.Recipe.findOrCreate({
+    where: {
+      name: 'Enchiladas'
+    }
+  })
+  .then( function( recipe ){
+    for( var i = 0; i < foods.length; i++ ){
+      models.Food.findOrCreate({
+        where: {
+          name: foods[i]
+        }
+      })
+      .then( function( ingredient ){
+        console.log( ingredient[0].name + " goes into " + recipe[0].name );
+        models.Ingredient.findOrCreate({
+          where: {
+            foodId: ingredient[0].id,
+            recipeId: recipe[0].id
+          }
+        })
+      })
+    }
+  })
+
 }
 
