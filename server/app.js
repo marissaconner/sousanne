@@ -26,13 +26,11 @@ app.get('/api/getRecipes', (req,res) => {
 });
 
 app.get('/api/getRecipe/:recipe', (req,res)=>{
-  console.log("Get recipe " + req.params.recipe );
-
-  //reject things that aren't specifically letters and spaces 
   const input = req.params.recipe;
-  //make sure the recipe is strictly letters and spaces
+  console.log("request is for:");
+  console.log( input );
+  
   const safeinput = input.replace( /[^\w\s]/gi, '' );
-
   Recipe.findOne({
     where: {
       name: safeinput
