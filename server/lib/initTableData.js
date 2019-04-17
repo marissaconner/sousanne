@@ -79,7 +79,10 @@ for( var i = 0; i < recipebook.length; i++ ){
     var currRecipe = recipebook[i];
     models.Recipe.findOrCreate({
     where: {
-      name: currRecipe.name
+      name: currRecipe.name,
+      preheat: currRecipe.preheat,
+      prep: currRecipe.prep,
+      cook: currRecipe.cook
     }
   })
   .then( function( thisRecipe ){

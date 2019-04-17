@@ -5,7 +5,7 @@ class Recipe extends Component {
    constructor(props){
     super(props);
     this.state = {
-      recipe: []
+      recipe: {}
     }
   }
 
@@ -19,11 +19,35 @@ class Recipe extends Component {
   }
  
   render() {
+    console.log( this.state.recipe );
     const recipe = this.state.recipe;
+    const instructions = recipe.Instructions;
+
     return (
     <div>
         <h1>Individual Recipe</h1> 
         {recipe.name}
+
+        <div id='instructions'>
+        <ol>
+        { instructions ?  
+          (
+            <li>
+              {
+                instructions.map( step => 
+                  <li>
+                  <b>
+                    {step.index + 1}.  
+                  </b>
+                  {step.instruction}
+                  </li>
+                )
+              }
+            </li>
+            )
+         : "Loading..." }
+        </ol>
+        </div>
     </div>
     );
   }

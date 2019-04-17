@@ -9,7 +9,9 @@ module.exports = function( sequelize, DataTypes ){
       type: DataTypes.BOOLEAN,
       default: false
     },
-    preheat: DataTypes.INTEGER
+    preheat: DataTypes.INTEGER,
+    prep: DataTypes.INTEGER,
+    cook: DataTypes.INTEGER
   },
   //options
   );
