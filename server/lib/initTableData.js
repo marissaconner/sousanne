@@ -29,37 +29,37 @@ module.exports = function( models ) {
     preheat: 350,
     ingredients: [
       {
-        ingredient: 'Corn Tortillas',
+        name: 'Corn Tortillas',
         unit: 'item',
         amount: 8
       },
       {
-        ingredient: 'Ground Beef',
+        name: 'Ground Beef',
         unit: 'pound',
         amount: 1
       },
       {
-        ingredient: 'Yellow Onion',
+        name: 'Yellow Onion',
         unit: 'cup',
         amount: 1.5
       },
       {
-        ingredient: 'Taco Seasoning',
+        name: 'Taco Seasoning',
         unit: 'tablespoon',
         amount: 1
       },
       {
-        ingredient: 'Enchilada Sauce',
+        name: 'Enchilada Sauce',
         unit: 'cup',
         amount: 2
       },
       {
-        ingredient: 'Cheddar Cheese',
+        name: 'Cheddar Cheese',
         unit: 'cup',
         amount: 1
       },
       {
-        ingredient: 'Monterey Jack Cheese',
+        name: 'Monterey Jack Cheese',
         unit: 'cup',
         amount: 1
       }
@@ -82,20 +82,42 @@ for( var i = 0; i < recipebook.length; i++ ){
       name: currRecipe.name
     }
   })
-  .then( function( currentrecipe ){
+  .then( function( thisRecipe ){
     console.log( "\n\n\n\nLEEEEEEEEEEEEEROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYYYYYY");
-    var recipedata = currentrecipe[0];
-   
+    var recipedata = thisRecipe[0];
+
+    for( var add = 0; add < currRecipe.ingredients.length; add++ ){
+      var currFood = currRecipe.ingredients[add];
+      console.log('\n\n\nCURRENT INGREDIENT TO ADD:' + currFood.name );
+      
+      models.Food.findOrCreate({
+        where: {
+          name: currFood.name
+        }
+      })
+      .then( function( food ){
+        models.Ingredient.findOrCreate({
+          where: {
+            recipeId: recipedata.id,
+            foodId: food[0].id,
+            amount: currFood.amount
+          }
+        })
+      })
+    }
+
     for( var step = 0; step < currRecipe.instructions.length; step++){
-      var currentStep = currRecipe.instructions[step];
+      var currStep = currRecipe.instructions[step];
       models.Instruction.findOrCreate({
         where: {
-          recipe_id: recipedata.id,
+          recipeId: recipedata.id,
           index: step,
-          instruction: currentStep
+          instruction: currStep
         }
       })
     }
+
+
   })
 }
 

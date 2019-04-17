@@ -9,7 +9,7 @@ module.exports = function( sequelize, DataTypes ){
   });
 
   Instruction.associate = function( models ){
-    models.Instruction.belongsTo( models.Recipe );
+    models.Instruction.belongsTo( models.Recipe, { as: 'recipe' } );
   }
 
   return Instruction;
