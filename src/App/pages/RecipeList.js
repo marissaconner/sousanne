@@ -27,7 +27,11 @@ class RecipeList extends Component {
     <div>
         <h1>Browsing Recipes</h1> 
         <ul>
-          {recipes.map(recipe => <li>{recipe.name}</li>)}
+          {recipes.map(recipe => <li>
+            <a href={`recipe/${recipe.name}`}>
+            {recipe.name}
+            </a>
+            </li>)}
         </ul>
     </div>
     );
