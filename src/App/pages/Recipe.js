@@ -22,17 +22,38 @@ class Recipe extends Component {
     console.log( this.state.recipe );
     const recipe = this.state.recipe;
     const instructions = recipe.Instructions;
+    const ingredients = recipe.Ingredients;
 
     return (
     <div>
-        <h1>Individual Recipe</h1> 
-        {recipe.name}
+        <a href='/recipes'>Back</a>
+        <h1>
+          {recipe.name ? recipe.name : 'Loading...'}
+        </h1> 
+
+        <div id='ingredients'>
+          {
+            ingredients ? 
+            (
+              <ul>
+              {
+                ingredients.map( ingredient => 
+                  <li>
+                    {ingredient.id}
+                    { ingredient.comment ? <span>{ingredient.comment}</span> : '' }
+                  </li>
+                )
+              }
+              </ul>
+            )
+            : "Loading..."
+          }
+        </div>
 
         <div id='instructions'>
-        <ol>
         { instructions ?  
           (
-            <li>
+            <ol>
               {
                 instructions.map( step => 
                   <li>
@@ -43,10 +64,9 @@ class Recipe extends Component {
                   </li>
                 )
               }
-            </li>
+              </ol>
             )
          : "Loading..." }
-        </ol>
         </div>
     </div>
     );

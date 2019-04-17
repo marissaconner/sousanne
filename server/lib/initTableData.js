@@ -41,7 +41,8 @@ module.exports = function( models ) {
       {
         name: 'Yellow Onion',
         unit: 'cup',
-        amount: 1.5
+        amount: 1.5,
+        comment: 'diced'
       },
       {
         name: 'Taco Seasoning',
@@ -56,12 +57,14 @@ module.exports = function( models ) {
       {
         name: 'Cheddar Cheese',
         unit: 'cup',
-        amount: 1
+        amount: 1,
+        comment: 'shredded'
       },
       {
         name: 'Monterey Jack Cheese',
         unit: 'cup',
-        amount: 1
+        amount: 1,
+        comment: 'shredded'
       }
     ],
     instructions: [
@@ -82,7 +85,7 @@ for( var i = 0; i < recipebook.length; i++ ){
       name: currRecipe.name,
       preheat: currRecipe.preheat,
       prep: currRecipe.prep,
-      cook: currRecipe.cook
+      cook: currRecipe.cook,
     }
   })
   .then( function( thisRecipe ){
@@ -114,7 +117,8 @@ for( var i = 0; i < recipebook.length; i++ ){
               recipeId: recipedata.id,
               foodId: fooddata.id,
               amount: currFood.amount,
-              unitId: unitdata.id
+              unitId: unitdata.id,
+              comment: currFood.comment
             }
           })
         })
