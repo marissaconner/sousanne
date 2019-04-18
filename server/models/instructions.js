@@ -10,6 +10,7 @@ module.exports = function( sequelize, DataTypes ){
 
   Instruction.associate = function( models ){
     models.Instruction.belongsTo( models.Recipe, { as: 'recipe' } );
+    models.Instruction.hasMany( models.Ingredient );
   }
 
   return Instruction;

@@ -20,6 +20,7 @@ module.exports = function( sequelize, DataTypes ) {
     models.Ingredient.belongsTo( models.Recipe, { as: 'recipe' } );
     models.Ingredient.belongsTo( models.Food, { as: 'food' } );
     models.Ingredient.belongsTo( models.Unit, { as: 'unit' } );
+    models.Ingredient.belongsTo( models.Instruction, { as: 'instruction' });
   }
   
   return Ingredient;
