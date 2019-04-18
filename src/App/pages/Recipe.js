@@ -5,22 +5,34 @@ class Recipe extends Component {
    constructor(props){
     super(props);
     this.state = {
-      recipe: {}
+      recipe: {
+        foods: []
+      }
     }
   }
 
+
+  getIngredient( ingredient ){
+    fetch(`api/ingredients/${ingredient}`)
+    .then( function( response ){
+      return response;
+    })
+  }
+
+
   componentDidMount(){
     const recipename = this.props.match.params.recipename;
-    console.log( "Recipe is...");
-    console.log( recipename );
-    fetch(`/api/getRecipe/${recipename}`)
+     fetch(`/api/recipes/${recipename}`)
     .then( res => res.json()) 
     .then( recipe => this.setState({ recipe }) )
   }
- 
+
+
   render() {
-    console.log( this.state.recipe );
     const recipe = this.state.recipe;
+
+   
+
     const instructions = recipe.Instructions;
     const ingredients = recipe.Ingredients;
 

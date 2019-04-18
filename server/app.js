@@ -8,9 +8,10 @@ const recipeController = require('./controllers/recipeController');
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, '/../build')));
 
-app.get('/api/getRecipes' , recipeController.getAllRecipes );
+app.get('/api/recipes' , recipeController.getAllRecipes );
+app.get('/api/recipes/:recipe', recipeController.getRecipe );
+app.get('/api/ingredients/:ingredient', recipeController.getIngredient );
 
-app.get('/api/getRecipe/:recipe', recipeController.getRecipe );
 
 app.get('*', (req,res) =>{
   console.log('page request');

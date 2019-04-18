@@ -2,6 +2,8 @@ const models = require( '../models' );
 const Recipe = models.Recipe;
 const Ingredient = models.Ingredient;
 const Instruction = models.Instruction;
+const Food = models.Food;
+const Unit = models.Unit;
 
 module.exports = {
 
@@ -17,15 +19,46 @@ module.exports = {
       }
       res.json( data );
     })
-    .catch( function( err ) {
-      return err;
+    .catch( function( error ) {
+      return error;
     });
   },
 
+  getIngredient: function( req, res ){
+    console.log( "Get Ingredient");
+    Ingredient.findOne({
+      where: {
+        id: req.params.ingredient
+      },
+      include: [
+        { 
+          model: Food,
+          as: 'food'
+        },
+        {
+          model: Unit,
+          as: 'unit'
+        }
+      ]
+    })
+    .then( function( ingredient ){
+      if( ingredient === null ){
+        res.status( 404 ).send( 'No such ingredient.' );
+        return null;
+      } 
+      res.json( ingredient );
+    })
+    .catch( function( error ){
+      console.log( error );
+      res.status( 500 ).send( error );
+    })
+  },
+
+
   getRecipe: function( req, res ){
+    var recipe = {};
+    var foods = [];
     const input = req.params.recipe;
-    console.log("request is for:");
-    console.log( input );
     const safeinput = input.replace( /[^\w\s]/gi, '' );
     Recipe.findOne({
       where: {
@@ -33,19 +66,20 @@ module.exports = {
       },
       include: [ 
         Instruction, 
-        Ingredient
+        Ingredient,
       ]
     })
-    .then( function( recipe ){
-      if( recipe === null ){
+    .then( function( data ){
+      if( data === null ){
         res.status( 404 ).send( 'No such recipe' + recipe );
         return null;
       }
-      res.json( recipe );
+      res.json( data ); 
     })
-    .catch( function( err ){
-      res.status( 404 ).send( 'No such recipe' + err );
+    .catch( function( error ){
+      console.log( error );
+      res.status( 500 ).send( error );
+
     })
   }
-  
 }

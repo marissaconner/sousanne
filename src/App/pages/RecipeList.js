@@ -11,15 +11,15 @@ class RecipeList extends Component {
 
   componentDidMount(){
     this.getRecipes();
-  }
+  };
 
   getRecipes = () =>{
     console.log( "Fetching recipes");
     //This is going to array of objects on your hands at this point
-    fetch('/api/getRecipes')
+    fetch('/api/recipes')
     .then( res => res.json()) 
     .then( recipes => this.setState({ recipes }) )
-  }
+  };
 
   render() {
     const recipes = this.state.recipes;
