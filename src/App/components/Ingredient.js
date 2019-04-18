@@ -16,12 +16,12 @@ class Ingredient extends Component{
 
   render(){
   const ingredient = this.state.ingredient.food;
+  const unit = this.state.ingredient.unit;
   return(
   <li>
       { ingredient ? (
       <span>
-      {this.props.amount} {this.props.ingredientId}
-      {ingredient.name}
+        {this.props.amount} {unit.name} {ingredient.name} {this.props.comment ? `, ${this.props.comment}` : "" } 
       </span>) : 'Loading Ingredients'}
   </li>
   )

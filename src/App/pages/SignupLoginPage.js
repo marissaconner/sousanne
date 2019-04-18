@@ -110,7 +110,7 @@ class SignupLoginPage extends Component {
         </span>
       </div>
 
-  <div className="tab-group">
+  <div className="tab-group bright">
       <div className={this.state.formAction === 'signup' ? 'tab active' : 'tab' } onClick={this.doSignup}>
         Sign Up
       </div>

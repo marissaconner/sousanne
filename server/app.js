@@ -13,6 +13,10 @@ app.get('/api/recipes/:recipe', recipeController.getRecipe );
 app.get('/api/ingredients/:ingredient', recipeController.getIngredient );
 
 
+app.get('*sousanne.css', (req,res) =>{
+res.sendFile(path.join(__dirname+'/../public/sousanne.css'));
+});
+
 app.get('*', (req,res) =>{
   console.log('page request');
     res.sendFile(path.join(__dirname+'/../public/index.html'));

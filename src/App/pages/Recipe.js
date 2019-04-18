@@ -5,10 +5,16 @@ class Recipe extends Component {
    constructor(props){
     super(props);
     this.state = {
+      display: 'ingredients',
       recipe: {}
     }
+    this.updateDisplay = this.updateDisplay.bind(this);
+  };
+  
+  updateDisplay( which ){
+    this.setState({display: which});
   }
-
+  
   componentDidMount(){
     const recipename = this.props.match.params.recipename;
      fetch(`/api/recipes/${recipename}`)
@@ -16,7 +22,7 @@ class Recipe extends Component {
     .then( recipe => this.setState({ recipe }) )
   }
 
-
+  
   render() {
     const recipe = this.state.recipe;
     const instructions = recipe.Instructions;
@@ -27,13 +33,25 @@ class Recipe extends Component {
         <a href='/recipes'>Back</a>
         <h1>
           {recipe.name ? recipe.name : 'Loading...'}
-        </h1> 
+        </h1>
 
-        <div id='ingredients'>
+        <div className='tab-group'>
+          <div className={this.state.display === 'ingredients' ? 'tab active' : 'tab' } onClick={()=>this.updateDisplay('ingredients')}>
+            Ingredients
+          </div>
+          <div className={this.state.display === 'instructions' ? 'tab active' : 'tab' } onClick={()=>this.updateDisplay('instructions')}>
+            Instructions
+          </div>
+          <div className={this.state.display === 'nutrition' ? 'tab active' : 'tab' }>
+            Nutrition
+          </div>
+        </div>
+
+        <div id='ingredients' className={this.state.display === 'ingredients' ? '' : 'hidden' }>
           {
             ingredients ? 
             (
-              <ul>
+              <ul className='checklist ingredients'>
               {
                 ingredients.map( ingredient => 
                   <Ingredient 
@@ -48,8 +66,9 @@ class Recipe extends Component {
             : "Loading..."
           }
         </div>
+     
 
-        <div id='instructions'>
+        <div id='instructions' className={this.state.display === 'instructions' ? '' : 'hidden' }>
         { instructions ?  
           (
             <ol>
@@ -67,7 +86,7 @@ class Recipe extends Component {
             )
          : "Loading..." }
         </div>
-    </div>
+      </div>
     );
   }
 }
