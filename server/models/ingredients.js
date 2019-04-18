@@ -13,7 +13,7 @@ module.exports = function( sequelize, DataTypes ) {
     },
     //options
     {
-      tableName: 'Ingredients',
+      tableName: 'Ingredients'
     });
 
   Ingredient.associate = function( models ){

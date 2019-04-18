@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
-
+import Ingredient from '../components/Ingredient.js';
 
 class Recipe extends Component {
    constructor(props){
     super(props);
     this.state = {
-      recipe: {
-        foods: []
-      }
+      recipe: {}
     }
   }
-
-
-  getIngredient( ingredient ){
-    fetch(`api/ingredients/${ingredient}`)
-    .then( function( response ){
-      return response;
-    })
-  }
-
 
   componentDidMount(){
     const recipename = this.props.match.params.recipename;
@@ -30,9 +19,6 @@ class Recipe extends Component {
 
   render() {
     const recipe = this.state.recipe;
-
-   
-
     const instructions = recipe.Instructions;
     const ingredients = recipe.Ingredients;
 
@@ -50,10 +36,11 @@ class Recipe extends Component {
               <ul>
               {
                 ingredients.map( ingredient => 
-                  <li>
-                    {ingredient.id}
-                    { ingredient.comment ? <span>{ingredient.comment}</span> : '' }
-                  </li>
+                  <Ingredient 
+                    amount = {ingredient.amount}
+                    ingredientId={ingredient.id}
+                    comment = {ingredient.comment} 
+                  />
                 )
               }
               </ul>
@@ -85,3 +72,4 @@ class Recipe extends Component {
   }
 }
 export default Recipe;
+
