@@ -52,14 +52,18 @@ class NewProduct extends Component {
         <fieldset>
           <legend>Product Information</legend>
 
-          <div className="form-group">
+            <div className="flexbox formgroup">
+            <div className="half">
             <input type="radio" value="false" id="isnotpackaged" onChange={()=> this.setPackaging(false) } checked={!this.state.packaged} /><label htmlFor="isnotpackaged">Sold by the...</label>
+            </div>
             { this.state.packaged ? "" : (
-              <select>
-                {bulkunits.map(unit => <option>{unit}</option>)}
-              </select>
+                <select className="half">
+                  {bulkunits.map(unit => <option>{unit}</option>)}
+                </select>
             )}
-
+            </div>
+       
+          <div className="form-group inline">
             <input type="radio" value="true" id="ispackaged"  onChange={()=> this.setPackaging(true) } checked={this.state.packaged} /> <label htmlFor="ispackaged">Packaged item</label>
           </div>
         </fieldset>
@@ -69,19 +73,39 @@ class NewProduct extends Component {
             <fieldset>
               <legend>Each item contains...</legend>
 
-              <input type="number" />
-              <select>
-                {units.map(unit => <option>{unit}</option>)}
-              </select>
+              <div className="flexbox formgroup">
+                <input className="third column" type="text" />
+                <select className="twothirds column">
+                  {units.map(unit => <option>{unit}</option>)}
+                </select>
+              </div>
 
-              <input type='checkbox' id='ismultipack' onChange={()=>this.toggleMultipack()} /> <label htmlFor='ismultipack'>Sold in a multipack of...</label>
-              {this.state.multipack ? (<input type='number' id='multipackcount' value={this.state.multipackCount} />) : ""}
+              <div className="flexbox formgroup">
+                <div className="twothirds column">
+                  <input  type='checkbox' id='ismultipack' onChange={()=>this.toggleMultipack()} /> <label htmlFor='ismultipack'>Sold in a multipack of...</label>
+                </div>
+                <div className="fourth">
+                {this.state.multipack ? (<input type='number' id='multipackcount' value={this.state.multipackCount} />) : ""}
+                </div>
+              </div>
             </fieldset>
           ) : ""
         }
 
         <span className="btn bare">Add Price</span>
-
+        <div className="formgroup flexbox">
+          <label for='price'>$</label>
+          <input id='price' type='text' /> at
+          <select>
+            {
+              this.state.storelist ? 
+              (
+                this.state.storelist.map( store => <option>{store}</option>)
+              ) : ""
+            }
+            <option>Add A Store</option>
+          </select>
+        </div>
         <button>Save</button>
     </form>
     );

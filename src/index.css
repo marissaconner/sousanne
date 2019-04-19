@@ -83,19 +83,27 @@ footer {
   padding: 0 1em;
 }
 
-.row,
 .column {
-  float: left;
-  box-sizing: border-box;
-}
-.row {
-  padding: 1em;
-  width: 100%;
-  clear: both;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
-.column {
-  padding: 1em;
+.column:last-of-type {
+  margin-right: 0;
+}
+.column:first-of-type {
+  margin-left: 0;
+}
+.flexbox {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.flex-column {
+  flex-direction: column;
+}
+.space-around {
+  justify-content: space-around;
 }
 
 .half {

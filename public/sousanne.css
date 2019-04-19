@@ -137,4 +137,10 @@ input:focus {
 
 fieldset {
   border: none;
+  outline: none;
+}
+
+legend {
+  font-weight: 700;
+  color: var(--analogous-a);
 }
