@@ -99,6 +99,9 @@ footer {
   justify-content: space-between;
   flex-direction: row;
 }
+.flexbox.formgroup {
+  align-items: center;
+}
 .flex-column {
   flex-direction: column;
 }
