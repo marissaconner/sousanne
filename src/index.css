@@ -14,7 +14,8 @@
   --splitcomp-a: #c25943;
   --splitcomp-b: #c243ad;
   --gray-dark: #a4a4a4;
-  --gray: #f0f0f0;
+  --gray: #c4c4c4;
+  --light-gray: #f0f0f0;
 }
 
 /* reset */
@@ -32,8 +33,15 @@ body {
   height: 100%;
 }
 
-ul {
+ul,
+ol {
   list-style-type: none;
+}
+ul li,
+ol li {
+  padding: 12px 0;
+  display: block;
+  border-bottom: 1px solid var(--gray);
 }
 
 a {

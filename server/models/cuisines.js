@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function( sequelize, DataTypes ){
+module.exports = function( sequelize, DataTypes ) {
   const Cuisine = sequelize.define( 'Cuisine', 
   //attributes
   {

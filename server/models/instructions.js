@@ -8,5 +8,9 @@ module.exports = function( sequelize, DataTypes ){
     instruction: DataTypes.STRING
   });
 
+  Instruction.associate = function( models ){
+    models.Instruction.belongsTo( models.Recipe, { as: 'recipe' } );
+  }
+
   return Instruction;
 }

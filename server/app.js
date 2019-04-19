@@ -1,13 +1,20 @@
 const express = require( 'express' );
 const path = require( 'path' );
 const app = express();
+const models = require( './models' ); 
+const recipeController = require('./controllers/recipeController');
+
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, '/../build')));
 
-app.get('/api/getList', (req,res) => {
-    console.log('Put together some data and send it');
-    res.json( ['milk' , 'eggs' , 'bread'] );
+app.get('/api/recipes' , recipeController.getAllRecipes );
+app.get('/api/recipes/:recipe', recipeController.getRecipe );
+app.get('/api/ingredients/:ingredient', recipeController.getIngredient );
+
+
+app.get('*sousanne.css', (req,res) =>{
+res.sendFile(path.join(__dirname+'/../public/sousanne.css'));
 });
 
 app.get('*', (req,res) =>{

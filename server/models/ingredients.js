@@ -4,10 +4,7 @@ module.exports = function( sequelize, DataTypes ) {
   const Ingredient = sequelize.define( 'Ingredient', 
     //attributes
     {
-      name: {
-        type: DataTypes.STRING(250),
-        unique: true,
-      },
+      comment: DataTypes.STRING,
       amount: DataTypes.INTEGER,
       optional: {
         type: DataTypes.BOOLEAN,
@@ -16,13 +13,14 @@ module.exports = function( sequelize, DataTypes ) {
     },
     //options
     {
-      tableName: 'Ingredients',
+      tableName: 'Ingredients'
     });
 
   Ingredient.associate = function( models ){
     models.Ingredient.belongsTo( models.Recipe, { as: 'recipe' } );
     models.Ingredient.belongsTo( models.Food, { as: 'food' } );
-    models.Ingredient.belongsTo(    models.Unit, { as: 'unit' } );
+    models.Ingredient.belongsTo( models.Unit, { as: 'unit' } );
+    models.Ingredient.belongsToMany( models.Instruction, { as: 'components', foreignKey: 'IngredientId' , through: 'b_ingredients_instructions' });
   }
   
   return Ingredient;

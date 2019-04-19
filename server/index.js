@@ -24,7 +24,7 @@ const warnUnsetVars = function ( vars ){
 
 warnUnsetVars( ['PORT' , 'JWT_SECRET' , 'SQLUSER' , 'SQLPASSWORD' , 'SQLPORT' , 'SQLDATABASE' ] );
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'shamalamadingdong'; 
-app.set( 'sqlport', process.env.SQLPORT || 3001 );
+app.set( 'sqlport', process.env.SQLPORT || 3300 );
 
 /* If force_truncate is true, Sequelize will be instructed to drop all tables and re-add them when the server starts. */
 
