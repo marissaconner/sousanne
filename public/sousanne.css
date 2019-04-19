@@ -106,7 +106,8 @@ form {
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+select {
   background: var(--text-on-dark);
   border: 1px solid var(--analogous-b);
 }
@@ -132,4 +133,8 @@ input:focus {
 .hidden {
   display: hidden;
   display: none;
+}
+
+fieldset {
+  border: none;
 }

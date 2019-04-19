@@ -281,10 +281,20 @@ h6 {
 .form-group .helptext {
   font-size: 12px;
 }
-input {
+input,
+select {
   display: block;
   width: 100%;
   padding: 10px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline;
+  width: auto;
+}
+input[type="radio"] + label {
+  display: inline;
 }
 
 .pinned-content {
