@@ -124,7 +124,7 @@ componentDidMount(){
             {
               this.state.storelist ? 
               (
-                this.state.storelist.map( store => <option>{store.name}</option>)
+                this.state.storelist.map( store => <option value={store.id}>{store.name}</option>)
               ) : ""
             }
             <option>Add A Store</option>

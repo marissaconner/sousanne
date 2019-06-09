@@ -11,4 +11,5 @@ module.exports = function( sequelize, DataTypes ){
 
   return Unit;
      models.Unit.hasMany( models.Ingredient );
+     models.Unit.hasMany( models.Product );
 }
