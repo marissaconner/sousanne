@@ -23,10 +23,12 @@ class FoodList extends Component {
     const foods = this.state.foods;
     return (
     <div>
-      <h1>Your Foods</h1> 
+      <h1>Foods List</h1> 
       <ul>
         {foods.map(food => <li>
+          <a href={`food/${food.id}`}>
           {food.name}
+          </a>
        </li>)}
       </ul>
     </div>
