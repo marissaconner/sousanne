@@ -2,6 +2,7 @@ const express = require( 'express' );
 const path = require( 'path' );
 const app = express();
 const models = require( './models' ); 
+const storeController = require('./controllers/storeController');
 const recipeController = require('./controllers/recipeController');
 
 
@@ -10,8 +11,10 @@ app.use(express.static(path.join(__dirname, '/../build')));
 
 app.get('/api/recipes' , recipeController.getAllRecipes );
 app.get('/api/recipes/:recipe', recipeController.getRecipe );
+
 app.get('/api/ingredients/:ingredient', recipeController.getIngredient );
 
+app.get('api/stores', storeController.getAllStores );
 
 app.get('*sousanne.css', (req,res) =>{
 res.sendFile(path.join(__dirname+'/../public/sousanne.css'));

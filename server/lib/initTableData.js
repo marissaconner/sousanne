@@ -2,6 +2,14 @@
 
 module.exports = function( models ) {
 
+  const stores = [
+  'Lucky',
+  'Whole Foods',
+  'Sprouts',
+  'Grocery Outlet',
+  'FoodMaxx'
+  ];
+
   const fakerecipes = ['Nachos', 'Tacos', 'Picadillo'];
 
   const foods = [
@@ -77,6 +85,15 @@ module.exports = function( models ) {
   }
   ];
 
+
+
+for( var i = 0; i < stores.length; i++ ){
+    models.Store.findOrCreate({
+    where: {
+      name: stores[i]
+    }
+  })
+};
 
 for( var i = 0; i < recipebook.length; i++ ){
     var currRecipe = recipebook[i];
