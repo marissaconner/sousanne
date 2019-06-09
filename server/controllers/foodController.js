@@ -1,5 +1,6 @@
 const models = require( '../models' ); 
 const Food = models.Food;
+const Package = models.Package;
 const Op = models.Sequelize.Op;
 
 module.exports = {
@@ -49,6 +50,9 @@ module.exports = {
           }
         ]
       },
+      include: [
+        Package
+      ]
     })
     .then( function( food ){
       if( food === null ){

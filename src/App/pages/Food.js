@@ -22,6 +22,7 @@ getFood = () => {
 
 render() {
     const food = this.state.food; 
+    const id = this.props.match.params.id;
 
    return (
     <div>
@@ -36,7 +37,7 @@ render() {
         : 
         (
           <div>
-          Add a price
+          <a href={`/product/new/${id}`}>Add prices</a>
           </div>
         )}
     </div>

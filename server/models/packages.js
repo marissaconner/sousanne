@@ -10,7 +10,7 @@ module.exports = function( sequelize, DataTypes ){
 
   Package.associate = function( models ){
     models.Package.belongsTo( models.Unit );
-    models.Package.belongsTo( models.Food ); 
+    models.Package.belongsTo( models.Food, { as: 'food' } ); 
   }
 
   return Package;
