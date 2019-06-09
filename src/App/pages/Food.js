@@ -4,7 +4,7 @@ class Food extends Component {
    constructor(props){
     super(props);
     this.state = {
-      food: null,
+      food: {},
     }
   }
 
@@ -13,9 +13,9 @@ componentDidMount(){
 }
 
 getFood = () => {
-  const id = this.props.match.params.foodid;
+  const id = this.props.match.params.id;
   console.log( "Fetching food information." );
-  fetch(`/api/foods/${foodid}`)
+  fetch(`/api/foods/${id}`)
   .then ( res => res.json())
   .then( food => this.setState({ food }));
 }
@@ -44,3 +44,5 @@ render() {
 }
 
 }
+
+export default Food;
