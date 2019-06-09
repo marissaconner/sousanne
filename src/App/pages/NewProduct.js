@@ -4,9 +4,14 @@ class NewProduct extends Component {
    constructor(props){
     super(props);
     this.state = {
+      storelist: [],
       packaged : false,
       multipack: false,
     }
+  }
+
+componentDidMount(){
+    this.getStores();
   }
 
   toggleMultipack(){
@@ -17,6 +22,13 @@ class NewProduct extends Component {
   setPackaging( value ) {
     this.setState({ packaged: value })
   }
+
+  getStores = () =>{  
+    fetch(`/api/stores`)
+    .then( res => res.json())
+    .then( storelist => this.setState({ storelist }))
+  };
+
   render() {
 
     const bulkunits = [
