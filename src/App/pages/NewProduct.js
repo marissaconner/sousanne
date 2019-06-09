@@ -4,6 +4,7 @@ class NewProduct extends Component {
    constructor(props){
     super(props);
     this.state = {
+      food: {},
       storelist: [],
       packaged : false,
       multipack: false,
@@ -11,6 +12,7 @@ class NewProduct extends Component {
   }
 
 componentDidMount(){
+    this.getFood();
     this.getStores();
   }
 
@@ -23,6 +25,14 @@ componentDidMount(){
     this.setState({ packaged: value })
   }
 
+  getFood = () => {
+  const id = this.props.match.params.id;
+  console.log( "Fetching food information." );
+  fetch(`/api/food/${id}`)
+  .then ( res => res.json())
+  .then( food => this.setState({ food }));
+  }
+
   getStores = () =>{  
     fetch(`/api/stores`)
     .then( res => res.json())
@@ -30,6 +40,8 @@ componentDidMount(){
   };
 
   render() {
+
+    const food = this.state.food;
 
     const bulkunits = [
     'Pound',
@@ -54,7 +66,7 @@ componentDidMount(){
     ]
     return (
     <form>
-        <h1>Food Name</h1>
+        <h1>{food.name}</h1>
 
         <div className="form-group">
           <label htmlFor="aisle">Aisle</label>
@@ -117,6 +129,10 @@ componentDidMount(){
             }
             <option>Add A Store</option>
           </select>
+
+          <label htmlFor="brand">Brand</label>
+          <input type="text" name="brand" id="brand" />
+        
         </div>
         <button>Save</button>
     </form>

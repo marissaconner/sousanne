@@ -15,7 +15,7 @@ componentDidMount(){
 getFood = () => {
   const id = this.props.match.params.id;
   console.log( "Fetching food information." );
-  fetch(`/api/foods/${id}`)
+  fetch(`/api/food/${id}`)
   .then ( res => res.json())
   .then( food => this.setState({ food }));
 }
@@ -25,7 +25,7 @@ render() {
 
    return (
     <div>
-      <h1>Food Name</h1>
+      <h1>{food.name ? food.name : "Loading..."}</h1>
 
       { food.productlist ? 
         (
