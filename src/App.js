@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import SignupLoginPage from './App/pages/SignupLoginPage.js';
 import RecipeList from './App/pages/RecipeList.js';
-import StoreList from './App/pages/StoreList.js'
+import StoreList from './App/pages/StoreList.js';
+import FoodList from './App/pages/FoodList.js';
 import Recipe from './App/pages/Recipe.js';
 import NewProduct from './App/pages/NewProduct.js';
 
@@ -16,6 +17,7 @@ class App extends Component {
         <Route path='/recipes' component={RecipeList}/>
         <Route path='/recipe/:recipename' component={Recipe}/>
         <Route path='/stores' component={StoreList}/>
+        <Route path='/foods' component={FoodList}/>
         <Route path='/product/new' component={NewProduct}/>
       </Switch>
     </div>
