@@ -28,67 +28,81 @@ module.exports = function( models ) {
       {
         name: 'dash',
         amount: 1,
+        common: false
       },
       {
         name: 'teaspoon',
-        amount: 8
+        amount: 8,
+        common: false
       },
       {
         name: 'tablespoon',
-        amount: 24
+        amount: 24,
+        common: false
       },
       {
         name: 'fluid ounce',
-        amount: 48 
+        amount: 48,
+        common: true 
       },
       {
         name: 'cup',
-        amount: 389.28
+        amount: 389.28,
+        common: false
       },
       {
         name: 'pint',
-        amount: 768
+        amount: 768,
+        common: true
       },
       {
         name: 'quart',
-        amount: 1536
+        amount: 1536,
+        common: true
       },
       {
         name: 'gallon',
-        amount: 6144
+        amount: 6144,
+        common: true
       },
       {
         name: 'millilitre',
-        amount: 1420
+        amount: 1420,
+        common: true
       },
       {
         name: 'litre',
-        amount: 1420000
+        amount: 1420000,
+        common: true
       }
     ]
     ,
     dry: [
       {
         name: 'gram',
-        amount: 1
+        amount: 1,
+        common: false
       },
       {
         name: 'kilogram',
-        amount: 1000
+        amount: 1000,
+        common: true
       },
       {
         name: 'ounce',
-        amount: 28.34
+        amount: 28.34,
+        common: true
       },
       {
         name: 'pound',
-        amount: 453.6
+        amount: 453.6,
+        common: true
       }
     ],
     unit: [
       {
         name: 'piece',
-        amount: 1
+        amount: 1,
       },
       {
         name: 'dozen',
@@ -97,32 +111,36 @@ module.exports = function( models ) {
     ]
   };
 
-  for( var i = 0; i < units.fluid.length; i++ ){
-    models.Unit.findOrCreate({
-      where: {
-        type: 'fluid',
-        name: units.fluid[i].name,
-        amount: units.fluid[i].amount
-      }
-  });
-  }
-
+  
   for( var i = 0; i < units.dry.length; i++ ){
     models.Unit.findOrCreate({
       where: {
         type: 'dry',
         name: units.dry[i].name,
-        amount: units.dry[i].amount
+        amount: units.dry[i].amount,
+        commonpackaging: units.dry[i].common
       }
   });
   }
+  for( var i = 0; i < units.fluid.length; i++ ){
+    models.Unit.findOrCreate({
+      where: {
+        type: 'fluid',
+        name: units.fluid[i].name,
+        amount: units.fluid[i].amount,
+        commonpackaging: units.fluid[i].common
+      }
+  });
+  }
+
 
   for( var i = 0; i < units.unit.length; i++ ){
     models.Unit.findOrCreate({
       where: {
         type: 'unit',
         name: units.unit[i].name,
-        amount: units.unit[i].amount
+        amount: units.unit[i].amount,
+        commonpackaging: true
       }
   });
       }

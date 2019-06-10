@@ -6,6 +6,7 @@ class NewProduct extends Component {
     this.state = {
       food: {},
       storelist: [],
+      unitlist: [],
       packaged : false,
       multipack: false,
     }
@@ -14,6 +15,7 @@ class NewProduct extends Component {
 componentDidMount(){
     this.getFood();
     this.getStores();
+    this.getBulkUnits();
   }
 
   toggleMultipack(){
@@ -33,6 +35,12 @@ componentDidMount(){
   .then( food => this.setState({ food }));
   }
 
+  getBulkUnits = () =>{
+    fetch(`/api/units/bulk`)
+    .then( res => res.json())
+    .then( unitlist => this.setState({ unitlist }) )
+  }
+
   getStores = () =>{  
     fetch(`/api/stores`)
     .then( res => res.json())
@@ -42,28 +50,8 @@ componentDidMount(){
   render() {
 
     const food = this.state.food;
+    const unitlist = this.state.unitlist;
 
-    const bulkunits = [
-    'Pound',
-    'Ounce',
-    'Gram',
-    'Litre',
-    'Dozen',
-    'Piece'
-    ]
-
-    const units = [
-      'Fluid ounces',
-      'Gallons',
-      'Grams',
-      'Litres',
-      'Millilitres',
-      'Ounces',
-      'Pieces',
-      'Pints',
-      'Pounds',
-      'Quarts'
-    ]
     return (
     <form>
         <h1>{food.name}</h1>
@@ -82,7 +70,7 @@ componentDidMount(){
             </div>
             { this.state.packaged ? "" : (
                 <select className="half">
-                  {bulkunits.map(unit => <option>{unit}</option>)}
+                  {unitlist.map(unit => <option selected={ (unit.name === "pound") ? "selected" : null } value={unit.id}>{unit.name}</option>)}
                 </select>
             )}
             </div>
@@ -100,7 +88,7 @@ componentDidMount(){
               <div className="flexbox formgroup">
                 <input className="third column" type="text" />
                 <select className="twothirds column">
-                  {units.map(unit => <option>{unit}</option>)}
+                  {unitlist.map(unit => <option selected={ (unit.name === "ounce" ) ? "selected" : null } value={unit.id}>{unit.name}s</option>)}
                 </select>
               </div>
 

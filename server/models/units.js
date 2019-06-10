@@ -6,7 +6,8 @@ module.exports = function( sequelize, DataTypes ){
   {
     name: DataTypes.STRING,
     type: DataTypes.STRING,
-    amount: DataTypes.INTEGER
+    amount: DataTypes.INTEGER,
+    commonpackaging: DataTypes.BOOLEAN
   });
 
   return Unit;
