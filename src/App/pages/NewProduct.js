@@ -86,7 +86,7 @@ componentDidMount(){
               <legend>Each item contains...</legend>
 
               <div className="flexbox formgroup">
-                <input className="third column" type="text" />
+                <input className="third column" type='number' />
                 <select className="twothirds column">
                   {unitlist.map(unit => <option selected={ (unit.name === "ounce" ) ? "selected" : null } value={unit.id}>{unit.name}s</option>)}
                 </select>
@@ -107,7 +107,7 @@ componentDidMount(){
         <span className="btn bare">Add Price</span>
         <div className="formgroup flexbox">
           <label for='price'>$</label>
-          <input id='price' type='text' /> at
+          <input id='price' type='number' /> at
           <select>
             {
               this.state.storelist ? 
