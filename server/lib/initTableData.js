@@ -22,12 +22,110 @@ module.exports = function( models ) {
   'Monterey Jack Cheese'
   ];
 
-  const units = [
-  'pound',
-  'item',
-  'tablespoon',
-  'cup'
-  ];
+
+  const units = {
+    fluid: [
+      {
+        name: 'dash',
+        amount: 1,
+      },
+      {
+        name: 'teaspoon',
+        amount: 8
+      },
+      {
+        name: 'tablespoon',
+        amount: 24
+      },
+      {
+        name: 'fluid ounce',
+        amount: 48 
+      },
+      {
+        name: 'cup',
+        amount: 389.28
+      },
+      {
+        name: 'pint',
+        amount: 768
+      },
+      {
+        name: 'quart',
+        amount: 1536
+      },
+      {
+        name: 'gallon',
+        amount: 6144
+      },
+      {
+        name: 'millilitre',
+        amount: 1420
+      },
+      {
+        name: 'litre',
+        amount: 1420000
+      }
+    ]
+    ,
+    dry: [
+      {
+        name: 'gram',
+        amount: 1
+      },
+      {
+        name: 'kilogram',
+        amount: 1000
+      },
+      {
+        name: 'ounce',
+        amount: 28.34
+      },
+      {
+        name: 'pound',
+        amount: 453.6
+      }
+    ],
+    unit: [
+      {
+        name: 'piece',
+        amount: 1
+      },
+      {
+        name: 'dozen',
+        amount: 12
+      }
+    ]
+  };
+
+  for( var i = 0; i < units.fluid.length; i++ ){
+    models.Unit.findOrCreate({
+      where: {
+        type: 'fluid',
+        name: units.fluid[i].name,
+        amount: units.fluid[i].amount
+      }
+  });
+  }
+
+  for( var i = 0; i < units.dry.length; i++ ){
+    models.Unit.findOrCreate({
+      where: {
+        type: 'dry',
+        name: units.dry[i].name,
+        amount: units.dry[i].amount
+      }
+  });
+  }
+
+  for( var i = 0; i < units.unit.length; i++ ){
+    models.Unit.findOrCreate({
+      where: {
+        type: 'unit',
+        name: units.unit[i].name,
+        amount: units.unit[i].amount
+      }
+  });
+      }
 
   const recipebook = [
   {
@@ -38,7 +136,7 @@ module.exports = function( models ) {
     ingredients: [
       {
         name: 'Corn Tortillas',
-        unit: 'item',
+        unit: 'piece',
         amount: 8
       },
       {
@@ -106,7 +204,6 @@ for( var i = 0; i < recipebook.length; i++ ){
     }
   })
   .then( function( thisRecipe ){
-    console.log( "\n\n\n\nLEEEEEEEEEEEEEROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYYYYYY");
     var recipedata = thisRecipe[0];
 
     for( var add = 0; add < currRecipe.ingredients.length; add++ ){
@@ -172,12 +269,6 @@ models.Food.findOrCreate({
   })
 }
 
-for( var i = 0; i < units.length; i++ ){
-models.Unit.findOrCreate({
-    where: {
-      name: units[i]
-    }
-  })
-}
+
 
 }
