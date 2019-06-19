@@ -82,10 +82,7 @@ module.exports = {
             }
           }
         ]
-      },
-      include: [
-        Package
-      ]
+      }
     })
     .then( function( food ){
       if( food === null ){

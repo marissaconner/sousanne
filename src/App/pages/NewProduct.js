@@ -9,13 +9,62 @@ class NewProduct extends Component {
       unitlist: [],
       packaged : false,
       multipack: false,
+      product: {
+        itemAmount: null,
+        itemUnit: null,
+        multipackCount: null,
+        itemSoldByUnit: null,
+        aisle: "",
+      },
+      prices: [
+        {
+        price: 0,
+        store: 0,
+        brand: "first"
+        },
+        {
+          price: 1,
+          store: 1,
+          brand: "second"
+        }]
     }
+    this.removePrice = this.removePrice.bind(this);
+    this.addPrice = this.addPrice.bind(this);
   }
+
+  validateField( fieldName, value ){
+   //
+  }
+
+  handleInput = e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({ [name]: value }, () => {
+      this.validateField(name, value);
+    });
+  };
 
 componentDidMount(){
     this.getFood();
     this.getStores();
     this.getBulkUnits();
+  }
+
+  removePrice( index ) {
+    const newpricelist = this.state.prices;
+    newpricelist.splice( index , 1 );
+    this.setState({ prices: newpricelist })
+  }
+
+  addPrice(){
+    let newprices = this.state.prices;
+    let newprice = {
+      price: null,
+      store: null,
+      brand: null
+    }
+    newprices.push(newprice);
+    this.setState({prices: newprices});
   }
 
   toggleMultipack(){
@@ -58,7 +107,7 @@ componentDidMount(){
 
         <div className="form-group">
           <label htmlFor="aisle">Aisle</label>
-          <input type="text" name="aisle" id="aisle" />
+          <input type="text" name="aisle" id="aisle" onChange={this.handleInput} value={this.state.aisle}/>
         </div>
 
         <fieldset>
@@ -66,17 +115,17 @@ componentDidMount(){
 
             <div className="flexbox formgroup">
             <div className="half">
-            <input type="radio" value="false" id="isnotpackaged" onChange={()=> this.setPackaging(false) } checked={!this.state.packaged} /><label htmlFor="isnotpackaged">Sold by the...</label>
+            <input type="radio" name="packaging" value="false" id="isnotpackaged" onChange={()=> this.setPackaging(false) } checked={!this.state.packaged} /><label htmlFor="isnotpackaged">Sold by the...</label>
             </div>
             { this.state.packaged ? "" : (
-                <select className="half">
-                  {unitlist.map(unit => <option selected={ (unit.name === "pound") ? "selected" : null } value={unit.id}>{unit.name}</option>)}
+                <select className="half" name="item-sold-by-unit" value={this.state.itemSoldByUnit} onChange={this.handleInput} >
+                  {unitlist.map( (unit, index) => <option key={index} selected={ (unit.name === "pound") ? "selected" : "" } value={unit.id}>{unit.name}</option>)}
                 </select>
             )}
             </div>
        
           <div className="form-group inline">
-            <input type="radio" value="true" id="ispackaged"  onChange={()=> this.setPackaging(true) } checked={this.state.packaged} /> <label htmlFor="ispackaged">Packaged item</label>
+            <input type="radio" value="true" id="ispackaged" name="packaging"  onChange={()=> this.setPackaging(true) } checked={this.state.packaged} /> <label htmlFor="ispackaged">Packaged item</label>
           </div>
         </fieldset>
 
@@ -86,18 +135,18 @@ componentDidMount(){
               <legend>Each item contains...</legend>
 
               <div className="flexbox formgroup">
-                <input className="third column" type='number' />
-                <select className="twothirds column">
-                  {unitlist.map(unit => <option selected={ (unit.name === "ounce" ) ? "selected" : null } value={unit.id}>{unit.name}s</option>)}
+                <input className="third column" name='item-amount' type='number' value={this.state.itemAmount} onChange={this.handleInput} />
+                <select className="twothirds column" name='item-unit' value={this.state.itemUnit} onChange={this.handleInput}>
+                  {unitlist.map( (unit, i) => <option key={i} value={unit.id}>{unit.name}s</option>)}
                 </select>
               </div>
 
               <div className="flexbox formgroup">
                 <div className="twothirds column">
-                  <input  type='checkbox' id='ismultipack' onChange={()=>this.toggleMultipack()} /> <label htmlFor='ismultipack'>Sold in a multipack of...</label>
+                  <input  type='checkbox' name='is-multipack' id='ismultipack' onChange={()=>this.toggleMultipack()} /> <label htmlFor='ismultipack'>Sold in a multipack of...</label>
                 </div>
                 <div className="fourth">
-                {this.state.multipack ? (<input type='number' id='multipackcount' value={this.state.multipackCount} />) : ""}
+                {this.state.multipack ? (<input type='number' name='multipack-count' id='multipackcount' value={this.state.product.multipackCount} onChange={this.handleInput} />) : ""}
                 </div>
               </div>
             </fieldset>
@@ -105,23 +154,34 @@ componentDidMount(){
         }
 
         <span className="btn bare">Add Price</span>
-        <div className="formgroup flexbox">
-          <label for='price'>$</label>
-          <input id='price' type='number' /> at
-          <select>
-            {
-              this.state.storelist ? 
-              (
-                this.state.storelist.map( store => <option value={store.id}>{store.name}</option>)
-              ) : ""
-            }
-            <option>Add A Store</option>
-          </select>
 
-          <label htmlFor="brand">Brand</label>
-          <input type="text" name="brand" id="brand" />
+        { this.state.prices.map( (price, i ) => 
+
+          <div className="formgroup flexbox" key={ i } > {/*this doesn't feel right but ok*/}
+            <label htmlFor='price'>$</label>
+            <input id={`price-${i}`} type='number' name={`price-${i}`} value={this.state.prices[i].price} onChange={this.handleInput}/> at
+            <select value={this.state.prices[i].store} onChange={this.handleInput} name={`store-${i}`}>
+              {
+                this.state.storelist ? 
+                (
+                  this.state.storelist.map( (store, index) => <option key={index} value={store.id}>{store.name}</option>)
+                ) : ""
+              }
+              <option>Add A Store</option>
+            </select>
+
+            <label htmlFor="brand">Brand</label>
+            <input type="text" name={`brand-${i}`} id="brand" value={this.state.prices[i].brand} onChange={this.handleInput}/>
+
+            <span className='close' onClick={()=>this.removePrice( i )}>&times;</span>
         
-        </div>
+          </div>
+
+          )}
+
+        <span className='button' onClick={()=>this.addPrice()}>Add Price</span>
+
+        
         <button>Save</button>
     </form>
     );
