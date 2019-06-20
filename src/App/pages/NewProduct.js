@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PriceForm from '../components/PriceForm.js'; 
 
 class NewProduct extends Component {
    constructor(props){
@@ -18,22 +19,39 @@ class NewProduct extends Component {
       },
       prices: [
         {
-        price: 0,
+        amount: 0,
         store: 0,
-        brand: "first"
+        brand: ""
         },
         {
-          price: 1,
-          store: 1,
-          brand: "second"
-        }]
+          amount: 0,
+          store: 0,
+          brand: ""
+        }
+      ]
     }
+
     this.removePrice = this.removePrice.bind(this);
     this.addPrice = this.addPrice.bind(this);
   }
 
-  validateField( fieldName, value ){
-   //
+  updatePriceAmount(index) {
+    this.setState({ prices[index]: {
+      ...prices[index],
+      amount: e.target.value,
+    }})
+  }
+  updatePriceBrand(index) {
+    return e => this.setState({ prices[index]: {
+      ...prices[index],
+      brand: e.target.value,
+    }})
+  }
+   updatePriceBrand(index) {
+    return e => this.setState({ prices[index]: {
+      ...prices[index],
+      brand: e.target.value,
+    }})
   }
 
   handleInput = e => {
@@ -41,7 +59,7 @@ class NewProduct extends Component {
     const value = e.target.value;
     this.setState({ [name]: value }, () => {
       this.validateField(name, value);
-    });
+    }); 
   };
 
 componentDidMount(){
@@ -59,7 +77,7 @@ componentDidMount(){
   addPrice(){
     let newprices = this.state.prices;
     let newprice = {
-      price: null,
+      amount: null,
       store: null,
       brand: null
     }
@@ -157,25 +175,16 @@ componentDidMount(){
 
         { this.state.prices.map( (price, i ) => 
 
-          <div className="formgroup flexbox" key={ i } > {/*this doesn't feel right but ok*/}
-            <label htmlFor='price'>$</label>
-            <input id={`price-${i}`} type='number' name={`price-${i}`} value={this.state.prices[i].price} onChange={this.handleInput}/> at
-            <select value={this.state.prices[i].store} onChange={this.handleInput} name={`store-${i}`}>
-              {
-                this.state.storelist ? 
-                (
-                  this.state.storelist.map( (store, index) => <option key={index} value={store.id}>{store.name}</option>)
-                ) : ""
-              }
-              <option>Add A Store</option>
-            </select>
-
-            <label htmlFor="brand">Brand</label>
-            <input type="text" name={`brand-${i}`} id="brand" value={this.state.prices[i].brand} onChange={this.handleInput}/>
-
-            <span className='close' onClick={()=>this.removePrice( i )}>&times;</span>
-        
-          </div>
+          <PriceForm 
+            index={i}
+            brand={price.brand}
+            amount={price.amount}
+            store={price.store}
+            storeList={this.state.storelist}
+            updateAmount={this.updatePriceAmount(i)}
+            updateBrand={this.updatePriceBrand(i)} 
+            removePrice={this.removePrice}
+          />          
 
           )}
 
