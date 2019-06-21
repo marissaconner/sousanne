@@ -38,6 +38,10 @@ class NewProduct extends Component {
     this.updatePriceStore = this.updatePriceStore.bind(this);
   }
 
+  validateField(){
+    //
+  }
+
   updatePriceAmount(index) {
     return e => {
       this.setState({
