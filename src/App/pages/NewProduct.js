@@ -33,25 +33,62 @@ class NewProduct extends Component {
 
     this.removePrice = this.removePrice.bind(this);
     this.addPrice = this.addPrice.bind(this);
+    this.updatePriceAmount = this.updatePriceAmount.bind(this);
+    this.updatePriceBrand = this.updatePriceBrand.bind(this);
+    this.updatePriceStore = this.updatePriceStore.bind(this);
   }
 
   updatePriceAmount(index) {
-    this.setState({ prices[index]: {
-      ...prices[index],
-      amount: e.target.value,
-    }})
+    return e => {
+      this.setState({
+        ...this.state,
+        prices: this.state.prices.map((price, i) => {
+          if(i === index) {
+            return {
+              ...price,
+              amount: e.target.value,
+            }
+          }
+          return price
+        })
+      })
+      console.log('Price ' + index + ' amount updated');
+    }
   }
   updatePriceBrand(index) {
-    return e => this.setState({ prices[index]: {
-      ...prices[index],
-      brand: e.target.value,
-    }})
+    return e => {
+      this.setState({
+        ...this.state,
+        prices: this.state.prices.map((price, i) => {
+          if(i === index) {
+            return {
+              ...price,
+              brand: e.target.value,
+            }
+          }
+          return price
+        })
+      })
+      console.log('Price ' + index + ' brand updated');
+    }
   }
-   updatePriceBrand(index) {
-    return e => this.setState({ prices[index]: {
-      ...prices[index],
-      brand: e.target.value,
-    }})
+   updatePriceStore(index) {
+    return e => {
+      console.log( e );
+      this.setState({
+        ...this.state,
+        prices: this.state.prices.map((price, i) => {
+          if(i === index) {
+            return {
+              ...price,
+              store: e.target.value,
+            }
+          }
+          return price
+        })
+      })
+      console.log('Price ' + index + ' store updated' );
+    }
   }
 
   handleInput = e => {
@@ -182,7 +219,8 @@ componentDidMount(){
             store={price.store}
             storeList={this.state.storelist}
             updateAmount={this.updatePriceAmount(i)}
-            updateBrand={this.updatePriceBrand(i)} 
+            updateBrand={this.updatePriceBrand(i)}
+            updateStore={this.updatePriceStore(i)} 
             removePrice={this.removePrice}
           />          
 
