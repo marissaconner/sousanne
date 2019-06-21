@@ -22,12 +22,128 @@ module.exports = function( models ) {
   'Monterey Jack Cheese'
   ];
 
-  const units = [
-  'pound',
-  'item',
-  'tablespoon',
-  'cup'
-  ];
+
+  const units = {
+    fluid: [
+      {
+        name: 'dash',
+        amount: 1,
+        common: false
+      },
+      {
+        name: 'teaspoon',
+        amount: 8,
+        common: false
+      },
+      {
+        name: 'tablespoon',
+        amount: 24,
+        common: false
+      },
+      {
+        name: 'fluid ounce',
+        amount: 48,
+        common: true 
+      },
+      {
+        name: 'cup',
+        amount: 389.28,
+        common: false
+      },
+      {
+        name: 'pint',
+        amount: 768,
+        common: true
+      },
+      {
+        name: 'quart',
+        amount: 1536,
+        common: true
+      },
+      {
+        name: 'gallon',
+        amount: 6144,
+        common: true
+      },
+      {
+        name: 'millilitre',
+        amount: 1420,
+        common: true
+      },
+      {
+        name: 'litre',
+        amount: 1420000,
+        common: true
+      }
+    ]
+    ,
+    dry: [
+      {
+        name: 'gram',
+        amount: 1,
+        common: false
+      },
+      {
+        name: 'kilogram',
+        amount: 1000,
+        common: true
+      },
+      {
+        name: 'ounce',
+        amount: 28.34,
+        common: true
+      },
+      {
+        name: 'pound',
+        amount: 453.6,
+        common: true
+      }
+    ],
+    unit: [
+      {
+        name: 'piece',
+        amount: 1,
+      },
+      {
+        name: 'dozen',
+        amount: 12
+      }
+    ]
+  };
+
+  
+  for( var i = 0; i < units.dry.length; i++ ){
+    models.Unit.findOrCreate({
+      where: {
+        type: 'dry',
+        name: units.dry[i].name,
+        amount: units.dry[i].amount,
+        commonpackaging: units.dry[i].common
+      }
+  });
+  }
+  for( var i = 0; i < units.fluid.length; i++ ){
+    models.Unit.findOrCreate({
+      where: {
+        type: 'fluid',
+        name: units.fluid[i].name,
+        amount: units.fluid[i].amount,
+        commonpackaging: units.fluid[i].common
+      }
+  });
+  }
+
+
+  for( var i = 0; i < units.unit.length; i++ ){
+    models.Unit.findOrCreate({
+      where: {
+        type: 'unit',
+        name: units.unit[i].name,
+        amount: units.unit[i].amount,
+        commonpackaging: true
+      }
+  });
+      }
 
   const recipebook = [
   {
@@ -38,7 +154,7 @@ module.exports = function( models ) {
     ingredients: [
       {
         name: 'Corn Tortillas',
-        unit: 'item',
+        unit: 'piece',
         amount: 8
       },
       {
@@ -106,7 +222,6 @@ for( var i = 0; i < recipebook.length; i++ ){
     }
   })
   .then( function( thisRecipe ){
-    console.log( "\n\n\n\nLEEEEEEEEEEEEEROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYYYYYY");
     var recipedata = thisRecipe[0];
 
     for( var add = 0; add < currRecipe.ingredients.length; add++ ){
@@ -172,12 +287,6 @@ models.Food.findOrCreate({
   })
 }
 
-for( var i = 0; i < units.length; i++ ){
-models.Unit.findOrCreate({
-    where: {
-      name: units[i]
-    }
-  })
-}
+
 
 }

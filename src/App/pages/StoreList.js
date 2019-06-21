@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 class StoreList extends Component {
    constructor(props){
     super(props);
@@ -25,16 +24,15 @@ class StoreList extends Component {
     const stores = this.state.stores;
     return (
     <div>
-        <h1>Browsing Recipes</h1> 
-        <ul>
-          {stores.map(store => <li>
-            <a href={`store/${store.name}`}>
-            {store.name}
-            </a>
-            </li>)}
-        </ul>
+      <h1>Your Stores</h1> 
+      <ul>
+        {stores.map(store => <li>
+          {store.name}
+       </li>)}
+      </ul>
     </div>
     );
   }
 }
+
 export default StoreList;
