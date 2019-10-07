@@ -18,7 +18,7 @@ app.get('/api/stores', storeController.getAllStores );
 
 app.get('/api/units/bulk', foodController.getBulkUnits);
 app.get('/api/units', foodController.getAllUnits );
-app.get('/api/foods', foodController.getAllFoods );
+app.get('/api/foods', foodController.getLastChildren );
 app.get('/api/food/:food', foodController.getFood ); 
 
 /*

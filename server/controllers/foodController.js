@@ -3,8 +3,23 @@ const Food = models.Food;
 const Package = models.Package;
 const Op = models.Sequelize.Op;
 const Unit = models.Unit;
+var Sequelize = require( '../lib/sequelize' );
 
 module.exports = {
+
+  getLastChildren: function( req, res ){
+
+    //There's gotta be a cleaner way to do this but for now...
+    Sequelize.query( 
+      'select name from foods WHERE id NOT IN ( SELECT parent_id FROM foods WHERE parent_id IS NOT NULL )',
+      {type: Sequelize.QueryTypes.SELECT})
+      .then(( results , metadata ) =>{
+          res.json( results )
+      })
+      .catch(function( error){
+          return error;
+      })
+  },
 
   getBulkUnits: function( req, res ){
     Unit.findAll({

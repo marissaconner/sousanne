@@ -267,6 +267,6 @@ module.exports = function( models ) {
       }
     }
   }
-
+  console.log("Init");
   addfoods( ingredients );
 }
