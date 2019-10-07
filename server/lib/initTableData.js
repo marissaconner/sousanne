@@ -65,11 +65,34 @@ module.exports = function( models ) {
     })
   };
 
-  function newFood( item ){
-    console.log( "running NewFood!!\r\n\r\n\r\n");
+ 
+
+  /*
+  "ingredients" is an array of objects with children in them like: 
+  ingredients: 
+  [
+    { 
+      name: 'meats', 
+      children: [
+        { name: 'beef' } , 
+        {
+          name: 'poultry', 
+          children: [ 
+             {name: 'chicken'},
+             {name: 'turkey'}
+          ]
+        }
+      ]
+    }
+  ]
+  */
+
+  function newChildFood( item , id ){
+    console.log("Running new child food.\r\n\r\n");
     models.Food.findOrCreate({ 
       where: {
         name: item.name,
+        parentId: id
        }
     })
     .then( function( data ){
@@ -77,19 +100,63 @@ module.exports = function( models ) {
     })
   };
 
+  async function createFood( item ){
+    await new Promise( r=> setTimeout(r,250));
+    const newFood = models.Food.findOrCreate({ 
+      where: {
+        name: item.name,
+       }
+    });
 
-  async function addfoods( foodarray ){
-    for( var i = 0; i < foodarray.length; i++ ){
-      console.log( "Iteration starting", i );
-
-      if( foodarray[i].hasOwnProperty('children') ){        
-        console.log("children found");
-        let parentFood = await newFood( foodarray[i]); 
-      }
-
-      else { newFood(foodarray[i]); }
+    if( newFood ){
+      return newFood;
+    } else {
+      throw Error('Error creating food');
     }
   }
-    
+
+  async function createChildFood( item, id ){
+    await new Promise( r=> setTimeout(r,250));
+    const newFood = models.Food.findOrCreate({ 
+      where: {
+        name: item.name,
+        parentId: id
+       }
+    });
+
+    if( newFood ){
+      return newFood;
+    } else {
+      throw Error('Error creating food');
+    }
+  }
+
+  async function addChildFoods( foods, id ){
+    console.log("\r\n\r\n\r\nChild Food Array")
+
+    for( var i = 0; i < foods.length; i++ ){
+      if( foods[i].hasOwnProperty('children')){
+        const childFood = await createChildFood( foods[i] , id );
+        const newId = childFood[0].dataValues.id; 
+        addChildFoods( foods[i].children, newId );
+      } else {
+        createChildFood( foods[i] , id );
+      }
+    }
+  };
+  
+  async function addfoods( foodarray ){
+    for( var i = 0; i < foodarray.length; i++ ){
+      if( foodarray[i].hasOwnProperty('children') ){        
+        const parentFood = await createFood( foodarray[i]);
+        const id = parentFood[0].dataValues.id;
+        addChildFoods( foodarray[i].children , id ); 
+      } else {
+        createFood(foodarray[i]);
+      }
+    }
+  }
+
+
   addfoods( ingredients );
 }
