@@ -185,7 +185,7 @@ module.exports = function( models ) {
             name: 'Cheese'
           },
           {
-            name: 'Cow Milk'
+            name: 'Milk'
           }
         ]
       },

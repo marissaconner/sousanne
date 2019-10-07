@@ -11,7 +11,7 @@ module.exports = {
 
     //There's gotta be a cleaner way to do this but for now...
     Sequelize.query( 
-      'select name from foods WHERE id NOT IN ( SELECT parent_id FROM foods WHERE parent_id IS NOT NULL )',
+      'select name, id from foods WHERE id NOT IN ( SELECT parent_id FROM foods WHERE parent_id IS NOT NULL )',
       {type: Sequelize.QueryTypes.SELECT})
       .then(( results , metadata ) =>{
           res.json( results )
