@@ -2,6 +2,55 @@
 
 module.exports = function( models ) {
 
+  const ingredients = [
+    {
+      name: 'Plant-Based Products',
+      children: [
+        {
+          name: 'Grains',
+          children: [
+            {
+              name: 'Gluten-Free Grains',
+              children: [
+                {
+                  name: 'Corn'
+                }
+              ]
+            },
+            {
+              name: 'Gluten-Containing Grains'
+            }
+          ]
+        },
+        
+      ]
+    },
+    {
+      name: 'Meat And Animal Products',
+      children: [
+        {
+          name: 'Seafood',
+          children: [
+            {
+              name: 'Fish',
+              children: [
+                {
+                  name: 'Salmon'
+                },
+                {
+                  name: 'Trout'
+                },
+              ]
+            }
+          ]
+        },
+        {
+          name: 'Beef'
+        }
+      ]
+    }
+  ];
+
   const stores = [
   'Lucky',
   'Whole Foods',
