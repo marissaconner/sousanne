@@ -10,7 +10,13 @@
   --primary-lighter: #90dbc2;
   --complement: #c2436d;
   --analogous-a: #43c259;
+  --analogous-a-dark: #339f46;
+  --analogous-a-darker: #277835;
   --analogous-b: #43adc2;
+  --analogous-b-lighter: #90cedb;
+  --analogous-b-dark: #338d9f;
+  --analogous-b-darker: #276b78;
+  --analogous-b-darkest: #205a65;
   --splitcomp-a: #c25943;
   --splitcomp-b: #c243ad;
   --gray-dark: #a4a4a4;
@@ -44,12 +50,14 @@ ol li {
   border-bottom: 1px solid var(--gray);
 }
 
-a {
+a,
+.aslink {
   transition: 0.25s ease-in-out;
   -moz-transition: 0.25s ease-in-out;
   -webkit-transition: 0.25s ease-in-out;
 }
-a:hover {
+a:hover,
+.aslink:hover {
   transition: 0.25s ease-in-out;
   -moz-transition: 0.25s ease-in-out;
   -webkit-transition: 0.25s ease-in-out;
@@ -87,7 +95,6 @@ footer {
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
-
 .column:last-of-type {
   margin-right: 0;
 }
@@ -99,14 +106,26 @@ footer {
   justify-content: space-between;
   flex-direction: row;
 }
-.flexbox.formgroup {
+.flexbox.form-group {
   align-items: center;
 }
+
+.tiny {
+  max-width: 60px;
+}
+.tiny input + label {
+  display: inline-block;
+}
+
 .flex-column {
   flex-direction: column;
 }
 .space-around {
   justify-content: space-around;
+}
+
+.column {
+  padding: 0.25em;
 }
 
 .half {
@@ -205,6 +224,10 @@ footer {
   vertical-align: middle;
 }
 
+input.inlineblock + label {
+  margin: 0 0.5em;
+}
+
 .inlineblock {
   display: inline-block;
 }
@@ -289,6 +312,20 @@ h6 {
   padding: 0.5em 0;
 }
 
+fieldset.inline .form-group {
+  display: inline-block;
+  margin: 0 0.5em;
+}
+fieldset.inline .form-group:first-of-type,
+fieldset.inline .form-group:last-of-type {
+  margin: 0;
+}
+
+fieldset {
+  border: none;
+  outline: none;
+}
+
 .form-group .helptext {
   font-size: 12px;
 }
@@ -339,6 +376,13 @@ button,
   -webkit-transition: 0.25s ease-in-out;
 }
 
+.button.textonly,
+.button.textonly:hover,
+.button.textonly:focus,
+.button.textonly:active {
+  background-color: transparent;
+}
+
 button:hover,
 .button:hover {
   cursor: pointer;
@@ -383,4 +427,9 @@ button:hover,
 .button:hover {
   background-color: var(--primary-light);
   border-color: var(--primary);
+}
+
+a {
+  text-decoration: none;
+  font-weight: 700;
 }

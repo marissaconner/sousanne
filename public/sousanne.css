@@ -144,3 +144,46 @@ legend {
   font-weight: 700;
   color: var(--analogous-a);
 }
+.selection-pool {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--analogous-b-lighter);
+  border-radius: 6px;
+  padding: 16px 8px 0px 8px;
+}
+
+.list-block {
+  flex-direction: column;
+}
+
+.large-selection {
+  position: relative;
+  height: 48px;
+}
+
+.large-selection input[type="checkbox"] {
+  width: 100%;
+  display: none;
+}
+
+.large-selection label {
+  box-sizing: border-box;
+  background-color: var(--analogous-b);
+  padding: 8px;
+  color: var(--text-on-dark);
+  border-radius: 5px;
+  margin: 3px;
+  border: 1px solid var(--analogous-b-dark);
+  word-break: keep-all;
+  border-bottom: 5px solid var(--analogous-b-dark);
+  transition: all 0.1s ease-in-out;
+}
+
+.large-selection input[type="checkbox"]:checked + label {
+  background-color: var(--analogous-b-dark);
+  border: 1px solid var(--analogous-b-darker);
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  line-height: 32px;
+  transition: all 0.1s ease-in-out;
+}
