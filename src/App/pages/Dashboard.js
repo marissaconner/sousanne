@@ -5,26 +5,56 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state={
+      extraAllergies: false,
+      allergylist: [
+        'Tree Nut',
+        'Peanut',
+        'Shellfish',
+        'Gluten',
+        'Dairy',
+      ]
+    }
 
+  this.toggleAllergies = this.toggleAllergies.bind(this);
+
+  }
+
+  toggleAllergies(){
+    if( this.state.extraAllergies ){
+       this.setState({
+        allergylist: [
+          'Tree Nut',
+          'Peanut',
+          'Shellfish',
+          'Gluten',
+          'Dairy',
+        ],
+        extraAllergies: false
+      })
+    } else {
+        this.setState({
+        allergylist: [
+          'Tree Nut',
+          'Peanut',
+          'Shellfish',
+          'Gluten',
+          'Dairy',
+          'Soy', 
+          'Fish' ,
+          'Eggs',
+          'Sesame' ,
+          'Mustard'
+        ],
+        extraAllergies: true
+      })
     }
   }
 
   render(){
-    var allergies = [
-      'Tree Nut',
-      'Peanut',
-      'Shellfish',
-      'Gluten',
-      'Dairy',
-    ];
 
-    var extraAllergies = [ 
-      'Soy', 
-      'Fish' ,
-      'Eggs',
-      'Sesame' ,
-      'Mustard' 
-    ];
+    var toggleAllergies = this.state.extraAllergies;
+
+    var allergies = this.state.allergylist; 
 
     var diets = [
       'Vegetarian',
@@ -73,19 +103,31 @@ class Dashboard extends Component {
             <h3>Allergies</h3>
             <div className='selection-pool list-block'>
             {
-            
-              allergies.map(allergy => 
-                <Checkbox checkboxStyle='large-selection' label={`${allergy}-Free`} checkboxid={allergy.split(' ').join('_')} />
+              allergies.map((allergy , index ) => 
+                <Checkbox checkboxStyle='large-selection' key = {index} label={`${allergy}-Free`} checkboxid={allergy.split(' ').join('_')} />
               )
             }
-            <a href='#' className='button textonly'>More...</a>
+
+            { this.state.extraAllergies ? 
+              (
+                <div class="form-group">
+                  <input type="text" placeholder='Search...'/>
+                </div>
+              ) 
+              :
+              (
+                ""
+              )
+            }
+
+            <span onClick={this.toggleAllergies} className='button textonly'>{ toggleAllergies ? 'Less' : 'More' }</span>
             </div>
            
             <h3>Diets</h3>
             <div className='selection-pool list-block'>
             {
-              diets.map(diet => 
-                <Checkbox checkboxStyle='large-selection' label={diet} checkboxid={diet.split(' ').join('_')} />
+              diets.map( (diet, index) => 
+                <Checkbox checkboxStyle='large-selection' key={index} label={diet} checkboxid={diet.split(' ').join('_')} />
               )
             }
             </div>     
