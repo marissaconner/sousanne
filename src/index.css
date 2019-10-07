@@ -95,8 +95,7 @@ footer {
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
-
-<<<<<<< 260468bca36fc6b8bafbcde7ec70522cbec5df54 .column:last-of-type {
+.column:last-of-type {
   margin-right: 0;
 }
 .column:first-of-type {
@@ -107,9 +106,17 @@ footer {
   justify-content: space-between;
   flex-direction: row;
 }
-.flexbox.formgroup {
+.flexbox.form-group {
   align-items: center;
 }
+
+.tiny {
+  max-width: 60px;
+}
+.tiny input + label {
+  display: inline-block;
+}
+
 .flex-column {
   flex-direction: column;
 }
@@ -217,6 +224,10 @@ footer {
   vertical-align: middle;
 }
 
+input.inlineblock + label {
+  margin: 0 0.5em;
+}
+
 .inlineblock {
   display: inline-block;
 }
@@ -301,6 +312,15 @@ h6 {
   padding: 0.5em 0;
 }
 
+fieldset.inline .form-group {
+  display: inline-block;
+  margin: 0 0.5em;
+}
+fieldset.inline .form-group:first-of-type,
+fieldset.inline .form-group:last-of-type {
+  margin: 0;
+}
+
 fieldset {
   border: none;
   outline: none;
@@ -356,6 +376,13 @@ button,
   -webkit-transition: 0.25s ease-in-out;
 }
 
+.button.textonly,
+.button.textonly:hover,
+.button.textonly:focus,
+.button.textonly:active {
+  background-color: transparent;
+}
+
 button:hover,
 .button:hover {
   cursor: pointer;
@@ -400,4 +427,9 @@ button:hover,
 .button:hover {
   background-color: var(--primary-light);
   border-color: var(--primary);
+}
+
+a {
+  text-decoration: none;
+  font-weight: 700;
 }

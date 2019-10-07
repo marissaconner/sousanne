@@ -16,49 +16,55 @@ class Dashboard extends Component {
       'Shellfish',
       'Gluten',
       'Dairy',
-      'Soy',
-      'Fish',
-      'Eggs',
-      'Sesame',
-      'Mustard'
     ];
+
+    var extraAllergies = [ 
+      'Soy', 
+      'Fish' ,
+      'Eggs',
+      'Sesame' ,
+      'Mustard' 
+    ];
+
     var diets = [
+      'Vegetarian',
+      'Vegan',
       'Low Carb',
       'Keto',
       'Paleo',
-      'Halal',
       'Kosher',
-      'Vegan',
-      'Vegetarian',
+      'Halal'      
     ];
   
     return(
 
-      <form>
-
-        <fieldset>
+      <form className='form'>
+        <fieldset className='inline'>
             <legend>
               Family Size
             </legend>
 
-            <div className='form-group'>
-              <input id='number-adults' type='number' />
-              <label htmlFor='number-adults'>adults</label>
-              <p>18 &amp; up <span className='aslink'>Advanced</span></p>
-            </div>
+              <div className='form-group'>
+                <input id='number-adults' className='tiny inlineblock' type='number' />
+                <label htmlFor='number-adults'>adults</label>
+                <p className='small'>18 &amp; up</p>
+              </div>
 
-            <div className='form-group'>
-              <input id='number-teenagers' type='number' />
-              <label htmlFor='number-teenagers'>teenagers</label>
-              <p>13 to 17 <span className='aslink'>Advanced</span></p>
-            </div>
+              <div className='form-group'>
+                <input id='number-teenagers' className='tiny inlineblock' type='number' />
+                <label htmlFor='number-teenagers'>teenagers</label>
+                <p className='small'>13 to 17</p>
+              </div>
 
-            <div className='form-group'>
-              <input id='number-children' type='number' />
-              <label htmlFor='number-adults'>adults</label>
-              <p>12 and under <span className='aslink'>Advanced</span></p>
-            </div>
+              <div className='form-group'>
+                <input id='number-children' className='tiny inlineblock'  type='number' />
+                <label htmlFor='number-children'>children</label>
+                <p className='small'>12 and under</p>
+              </div>
         </fieldset>
+
+        <a className='aslink center'>Advanced</a>
+        <p className='small'>Add each family member's age and weight for a healthier, more affordable mealplan</p>
 
         <fieldset>
             <legend>Food Restrictions</legend>
@@ -72,17 +78,17 @@ class Dashboard extends Component {
                 <Checkbox checkboxStyle='large-selection' label={`${allergy}-Free`} checkboxid={allergy.split(' ').join('_')} />
               )
             }
+            <a href='#' className='button textonly'>More...</a>
             </div>
            
             <h3>Diets</h3>
-            <div className='selection-pool'>
+            <div className='selection-pool list-block'>
             {
               diets.map(diet => 
                 <Checkbox checkboxStyle='large-selection' label={diet} checkboxid={diet.split(' ').join('_')} />
               )
             }
             </div>     
-            <a>Show More</a>
         </fieldset>
       </form>
     )
