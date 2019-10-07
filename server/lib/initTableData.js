@@ -51,182 +51,46 @@ module.exports = function( models ) {
     }
   ];
 
-  const stores = [
-  'Lucky',
-  'Whole Foods',
-  'Sprouts',
-  'Grocery Outlet',
-  'FoodMaxx'
-  ];
+  function installChildIngredient( item , parentId ){
+    //We are getting an array that has grains in it  and 1 
 
-  const fakerecipes = ['Nachos', 'Tacos', 'Picadillo'];
-
-  const foods = [
-  'Corn Tortillas',
-  'Ground Beef',
-  'Yellow Onion',
-  'Taco Seasoning',
-  'Enchilada Sauce',
-  'Cheddar Cheese',
-  'Monterey Jack Cheese'
-  ];
-
-  const units = [
-  'pound',
-  'item',
-  'tablespoon',
-  'cup'
-  ];
-
-  const recipebook = [
-  {
-    name: 'Enchiladas',
-    prep: 900,
-    cook: 1800,
-    preheat: 350,
-    ingredients: [
-      {
-        name: 'Corn Tortillas',
-        unit: 'item',
-        amount: 8
-      },
-      {
-        name: 'Ground Beef',
-        unit: 'pound',
-        amount: 1
-      },
-      {
-        name: 'Yellow Onion',
-        unit: 'cup',
-        amount: 1.5,
-        comment: 'diced'
-      },
-      {
-        name: 'Taco Seasoning',
-        unit: 'tablespoon',
-        amount: 1
-      },
-      {
-        name: 'Enchilada Sauce',
-        unit: 'cup',
-        amount: 2
-      },
-      {
-        name: 'Cheddar Cheese',
-        unit: 'cup',
-        amount: 1,
-        comment: 'shredded'
-      },
-      {
-        name: 'Monterey Jack Cheese',
-        unit: 'cup',
-        amount: 1,
-        comment: 'shredded'
+    models.food.findOrCreate({
+      where: {
+        name: item.name,
+        parentId: parentId
       }
-    ],
-    instructions: [
-      'Cook the onion and ground beef together with the taco seasoning.',
-      'Fill each tortilla with ground beef and cheese.',
-      'Roll the tortillas up and put them in a baking dish.',
-      'Top with enchilada sauce and extra cheese.',
-      'Bake for 30 mintues.'
-    ]
-  }
-  ];
+      //we made grains now with parent id 1
+    })
+    .then( function( newParent ){ //that returns an object so lets say grains is id 2
+      if( item.hasOwnProperty( 'children' ) ){ //it does
+        const childArray = newParent.children;  //so we have an array w gluten free and nongluten
+        for( var i = 0; i < childArray.length; i++ ){
+          installChildIngredient( childArray[i] , newParent.id );
+        }
+      }
+    })
+  };
 
-
-
-for( var i = 0; i < stores.length; i++ ){
-    models.Store.findOrCreate({
-    where: {
-      name: stores[i]
-    }
-  })
-};
-
-for( var i = 0; i < recipebook.length; i++ ){
-    var currRecipe = recipebook[i];
-    models.Recipe.findOrCreate({
-    where: {
-      name: currRecipe.name,
-      preheat: currRecipe.preheat,
-      prep: currRecipe.prep,
-      cook: currRecipe.cook,
-    }
-  })
-  .then( function( thisRecipe ){
-    console.log( "\n\n\n\nLEEEEEEEEEEEEEROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYYYYYY");
-    var recipedata = thisRecipe[0];
-
-    for( var add = 0; add < currRecipe.ingredients.length; add++ ){
-      var currFood = currRecipe.ingredients[add];
-      console.log('\n\n\nCURRENT INGREDIENT TO ADD:' + currFood.name );
-
+  function installIngredients( items ){
+    for( var i = 0; i < items.length; i++ ){
+      console.log( "I am looking at items" , items[i] );
+      parentItem = items[i]
       models.Food.findOrCreate({
         where: {
-          name: currFood.name
+          name: parentItem.name,
         }
       })
-      .then( function( food ){
-        var fooddata = food[0];
-        models.Unit.findOrCreate(
-        {
-          where: {
-            name: currFood.unit
-          }
-        })
-        .then(function(unit){
-          var unitdata = unit[0];
-
-            models.Ingredient.findOrCreate({
-            where: {
-              recipeId: recipedata.id,
-              foodId: fooddata.id,
-              amount: currFood.amount,
-              unitId: unitdata.id,
-              comment: currFood.comment
-            }
-          })
-        })
-     });
-
-    for( var step = 0; step < currRecipe.instructions.length; step++){
-      var currStep = currRecipe.instructions[step];
-      models.Instruction.findOrCreate({
-        where: {
-          recipeId: recipedata.id,
-          index: step,
-          instruction: currStep
+      .then( function ( parent ){
+        console.log( "checking for children at installIngredients" , i );
+        console.log( parentItem ); 
+        if( parentItem.hasOwnProperty( 'children' ) ) {
+          //it does
+          installChildIngredient( parentItem.children , parent.id );
         }
       })
     }
+  }; 
 
-  }
-});
-}
-
-for( var i = 0; i < fakerecipes.length; i++ ){
-models.Recipe.findOrCreate({
-    where: {
-      name: fakerecipes[i]
-    }
-  })
-}
-
-for( var i = 0; i < foods.length; i++ ){
-models.Food.findOrCreate({
-    where: {
-      name: foods[i]
-    }
-  })
-}
-
-for( var i = 0; i < units.length; i++ ){
-models.Unit.findOrCreate({
-    where: {
-      name: units[i]
-    }
-  })
-}
+  installIngredients( ingredients );
 
 }
