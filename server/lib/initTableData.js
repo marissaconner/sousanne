@@ -2,291 +2,271 @@
 
 module.exports = function( models ) {
 
-  const stores = [
-  'Lucky',
-  'Whole Foods',
-  'Sprouts',
-  'Grocery Outlet',
-  'FoodMaxx'
-  ];
-
-  const fakerecipes = ['Nachos', 'Tacos', 'Picadillo'];
-
-  const foods = [
-  'Corn Tortillas',
-  'Ground Beef',
-  'Yellow Onion',
-  'Taco Seasoning',
-  'Enchilada Sauce',
-  'Cheddar Cheese',
-  'Monterey Jack Cheese'
-  ];
-
-
-  const units = {
-    fluid: [
-      {
-        name: 'dash',
-        amount: 1,
-        common: false
-      },
-      {
-        name: 'teaspoon',
-        amount: 8,
-        common: false
-      },
-      {
-        name: 'tablespoon',
-        amount: 24,
-        common: false
-      },
-      {
-        name: 'fluid ounce',
-        amount: 48,
-        common: true 
-      },
-      {
-        name: 'cup',
-        amount: 389.28,
-        common: false
-      },
-      {
-        name: 'pint',
-        amount: 768,
-        common: true
-      },
-      {
-        name: 'quart',
-        amount: 1536,
-        common: true
-      },
-      {
-        name: 'gallon',
-        amount: 6144,
-        common: true
-      },
-      {
-        name: 'millilitre',
-        amount: 1420,
-        common: true
-      },
-      {
-        name: 'litre',
-        amount: 1420000,
-        common: true
-      }
-    ]
-    ,
-    dry: [
-      {
-        name: 'gram',
-        amount: 1,
-        common: false
-      },
-      {
-        name: 'kilogram',
-        amount: 1000,
-        common: true
-      },
-      {
-        name: 'ounce',
-        amount: 28.34,
-        common: true
-      },
-      {
-        name: 'pound',
-        amount: 453.6,
-        common: true
-      }
-    ],
-    unit: [
-      {
-        name: 'piece',
-        amount: 1,
-      },
-      {
-        name: 'dozen',
-        amount: 12
-      }
-    ]
-  };
-
-  
-  for( var i = 0; i < units.dry.length; i++ ){
-    models.Unit.findOrCreate({
-      where: {
-        type: 'dry',
-        name: units.dry[i].name,
-        amount: units.dry[i].amount,
-        commonpackaging: units.dry[i].common
-      }
-  });
-  }
-  for( var i = 0; i < units.fluid.length; i++ ){
-    models.Unit.findOrCreate({
-      where: {
-        type: 'fluid',
-        name: units.fluid[i].name,
-        amount: units.fluid[i].amount,
-        commonpackaging: units.fluid[i].common
-      }
-  });
-  }
-
-
-  for( var i = 0; i < units.unit.length; i++ ){
-    models.Unit.findOrCreate({
-      where: {
-        type: 'unit',
-        name: units.unit[i].name,
-        amount: units.unit[i].amount,
-        commonpackaging: true
-      }
-  });
-      }
-
-  const recipebook = [
+  const ingredients = [
   {
-    name: 'Enchiladas',
-    prep: 900,
-    cook: 1800,
-    preheat: 350,
-    ingredients: [
+    name: 'Plant-Based Products',
+    children: [
       {
-        name: 'Corn Tortillas',
-        unit: 'piece',
-        amount: 8
+        name: 'Vegetables'
       },
       {
-        name: 'Ground Beef',
-        unit: 'pound',
-        amount: 1
+        name: 'Fruits'
       },
       {
-        name: 'Yellow Onion',
-        unit: 'cup',
-        amount: 1.5,
-        comment: 'diced'
-      },
-      {
-        name: 'Taco Seasoning',
-        unit: 'tablespoon',
-        amount: 1
-      },
-      {
-        name: 'Enchilada Sauce',
-        unit: 'cup',
-        amount: 2
-      },
-      {
-        name: 'Cheddar Cheese',
-        unit: 'cup',
-        amount: 1,
-        comment: 'shredded'
-      },
-      {
-        name: 'Monterey Jack Cheese',
-        unit: 'cup',
-        amount: 1,
-        comment: 'shredded'
+        name: 'Grains',
+        children: [
+          {
+            name: 'Gluten Grains',
+            children: [
+              {
+                name: 'Wheat',
+                children: [
+                  {
+                    name: 'Spelt'
+                  },
+                  {
+                    name: 'Kamut'
+                  },
+                  {
+                    name: 'Farro'
+                  },
+                  {
+                    name: 'Durum',
+                    children: [
+                      {
+                        name: 'Bulgur'
+                      },
+                      {
+                        name: 'Semolina'
+                      }
+                    ]
+                  },
+                ]
+              },
+              {
+                name: 'Barley'
+              },
+              {
+                name: 'Rye'
+              },
+              {
+                name: 'Triticale'
+              },
+            ]
+          },
+          {
+            name: 'Gluten-Free Grains',
+            children: [
+              {
+                name: 'Indian Ricegrass',
+              },
+              {
+                name: 'Chinese Pearl Barley'
+              },
+              {
+                name: 'Sorghum', 
+              },
+              {
+                name: 'Quinoa',
+              },
+              {
+                name: 'Oats',
+              },
+              {
+                name: 'Buckwheat',
+              },
+              {
+                name: 'Amaranth ',
+              },
+              {
+                name: 'Teff'
+              },
+              {
+                name: 'Rice',
+                chidren: [
+                  {
+                    name: 'Wild Rice'
+                  },
+                  {
+                    name: 'Brown Rice'
+                  },
+                  {
+                    name: 'White Rice'
+                  }
+                ]
+              },
+              {
+                name: 'Millet', 
+              },
+              {
+                name: 'Corn',
+              }
+            ]
+          }
+        ]
       }
-    ],
-    instructions: [
-      'Cook the onion and ground beef together with the taco seasoning.',
-      'Fill each tortilla with ground beef and cheese.',
-      'Roll the tortillas up and put them in a baking dish.',
-      'Top with enchilada sauce and extra cheese.',
-      'Bake for 30 mintues.'
+    ]
+  },
+  {
+    name: 'Animal Products',
+    children: [
+      {
+        name: 'Meats',
+        children: [
+          {
+            name: 'Beef'
+          },
+          {
+            name: 'Pork'
+          },
+          {
+            name: 'Horse'
+          },
+          {
+            name: 'Venison'
+          },
+          {
+            name: 'Sheep'
+          },
+          {
+            name: 'Goat'
+          },
+          {
+            name: 'Boar'
+          },
+          {
+            name: 'Rabbit'
+          },
+          {
+            name: 'Elk'
+          },
+          {
+          name: 'Poultry',
+          children: 
+            [
+              {
+                name: 'Chicken',
+              },
+              {
+                name: 'Duck'
+              },
+              {
+                name: 'Goose'
+              },
+              {
+               name: 'Turkey'
+              },
+              {
+                name: 'Quail'
+              },
+              {
+                name: 'Squab'
+              },
+              {
+                name: 'Pheasant'
+              },
+              {
+                name: 'Dove'
+              },
+            ]
+          },
+        ]
+      },
+      {
+        name: 'Fish'
+      },
+      {
+        name: 'Dairy',
+        children: [
+          {
+            name: 'Butter'
+          },
+          {
+            name: 'Cheese'
+          },
+          {
+            name: 'Cow Milk'
+          }
+        ]
+      },
+      {
+        name: 'Eggs',
+        children: [
+          {
+            name: 'Chicken Egg'
+          },
+          {
+            name: 'Quail Egg'
+          },
+          {
+            name: 'Duck Egg'
+          }
+        ]
+      },
+      {
+        name: 'Honey'
+      },
+      {
+        name: 'Fish Roe'
+      }
     ]
   }
-  ];
+];
 
+  async function createFood( item ){
+    await new Promise( r=> setTimeout(r,250));
+    const newFood = models.Food.findOrCreate({ 
+      where: {
+        name: item.name,
+       }
+    });
 
-
-for( var i = 0; i < stores.length; i++ ){
-    models.Store.findOrCreate({
-    where: {
-      name: stores[i]
+    if( newFood ){
+      return newFood;
+    } else {
+      throw Error('Error creating food');
     }
-  })
-};
-
-for( var i = 0; i < recipebook.length; i++ ){
-    var currRecipe = recipebook[i];
-    models.Recipe.findOrCreate({
-    where: {
-      name: currRecipe.name,
-      preheat: currRecipe.preheat,
-      prep: currRecipe.prep,
-      cook: currRecipe.cook,
-    }
-  })
-  .then( function( thisRecipe ){
-    var recipedata = thisRecipe[0];
-
-    for( var add = 0; add < currRecipe.ingredients.length; add++ ){
-      var currFood = currRecipe.ingredients[add];
-      console.log('\n\n\nCURRENT INGREDIENT TO ADD:' + currFood.name );
-
-      models.Food.findOrCreate({
-        where: {
-          name: currFood.name
-        }
-      })
-      .then( function( food ){
-        var fooddata = food[0];
-        models.Unit.findOrCreate(
-        {
-          where: {
-            name: currFood.unit
-          }
-        })
-        .then(function(unit){
-          var unitdata = unit[0];
-
-            models.Ingredient.findOrCreate({
-            where: {
-              recipeId: recipedata.id,
-              foodId: fooddata.id,
-              amount: currFood.amount,
-              unitId: unitdata.id,
-              comment: currFood.comment
-            }
-          })
-        })
-     });
-
-    for( var step = 0; step < currRecipe.instructions.length; step++){
-      var currStep = currRecipe.instructions[step];
-      models.Instruction.findOrCreate({
-        where: {
-          recipeId: recipedata.id,
-          index: step,
-          instruction: currStep
-        }
-      })
-    }
-
   }
-});
-}
 
-for( var i = 0; i < fakerecipes.length; i++ ){
-models.Recipe.findOrCreate({
-    where: {
-      name: fakerecipes[i]
+  async function createChildFood( item, id ){
+    await new Promise( r=> setTimeout(r,250));
+    const newFood = models.Food.findOrCreate({ 
+      where: {
+        name: item.name,
+        parentId: id
+       }
+    });
+
+    if( newFood ){
+      return newFood;
+    } else {
+      throw Error('Error creating food');
     }
-  })
-}
+  }
 
-for( var i = 0; i < foods.length; i++ ){
-models.Food.findOrCreate({
-    where: {
-      name: foods[i]
+  async function addChildFoods( foods, id ){
+    for( var i = 0; i < foods.length; i++ ){
+      if( foods[i].hasOwnProperty('children')){
+        const childFood = await createChildFood( foods[i] , id );
+        const newId = childFood[0].dataValues.id; 
+        addChildFoods( foods[i].children, newId );
+      } else {
+        createChildFood( foods[i] , id );
+      }
     }
-  })
-}
+  };
+  
+  async function addfoods( foodarray ){
+    for( var i = 0; i < foodarray.length; i++ ){
+      if( foodarray[i].hasOwnProperty('children') ){        
+        const parentFood = await createFood( foodarray[i]);
+        const id = parentFood[0].dataValues.id;
+        addChildFoods( foodarray[i].children , id ); 
+      } else {
+        createFood(foodarray[i]);
+      }
+    }
+  }
 
-
-
+  addfoods( ingredients );
 }
