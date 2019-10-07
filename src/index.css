@@ -10,7 +10,13 @@
   --primary-lighter: #90dbc2;
   --complement: #c2436d;
   --analogous-a: #43c259;
+  --analogous-a-dark: #339f46;
+  --analogous-a-darker: #277835;
   --analogous-b: #43adc2;
+  --analogous-b-lighter: #90cedb;
+  --analogous-b-dark: #338d9f;
+  --analogous-b-darker: #276b78;
+  --analogous-b-darkest: #205a65;
   --splitcomp-a: #c25943;
   --splitcomp-b: #c243ad;
   --gray-dark: #a4a4a4;
@@ -44,12 +50,14 @@ ol li {
   border-bottom: 1px solid var(--gray);
 }
 
-a {
+a,
+.aslink {
   transition: 0.25s ease-in-out;
   -moz-transition: 0.25s ease-in-out;
   -webkit-transition: 0.25s ease-in-out;
 }
-a:hover {
+a:hover,
+.aslink:hover {
   transition: 0.25s ease-in-out;
   -moz-transition: 0.25s ease-in-out;
   -webkit-transition: 0.25s ease-in-out;
@@ -88,7 +96,7 @@ footer {
   margin-right: 0.5em;
 }
 
-.column:last-of-type {
+<<<<<<< 260468bca36fc6b8bafbcde7ec70522cbec5df54 .column:last-of-type {
   margin-right: 0;
 }
 .column:first-of-type {
@@ -107,6 +115,10 @@ footer {
 }
 .space-around {
   justify-content: space-around;
+}
+
+.column {
+  padding: 0.25em;
 }
 
 .half {
@@ -287,6 +299,11 @@ h6 {
 .form-group {
   display: block;
   padding: 0.5em 0;
+}
+
+fieldset {
+  border: none;
+  outline: none;
 }
 
 .form-group .helptext {

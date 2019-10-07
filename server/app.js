@@ -21,6 +21,13 @@ app.get('/api/units', foodController.getAllUnits );
 app.get('/api/foods', foodController.getAllFoods );
 app.get('/api/food/:food', foodController.getFood ); 
 
+/*
+Routes to create: 
+app.post('/api/food/new', recipeController.insertFood )
+app.post('/api/product/new', pricebookController.insertProduct );
+app.post('/api/price/new', pricebookController.insertPrice );
+*/
+
 app.get('*sousanne.css', (req,res) =>{
   res.sendFile(path.join(__dirname+'/../public/sousanne.css'));
 });

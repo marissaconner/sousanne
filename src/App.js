@@ -7,6 +7,7 @@ import FoodList from './App/pages/FoodList.js';
 import Food from './App/pages/Food.js';
 import Recipe from './App/pages/Recipe.js';
 import NewProduct from './App/pages/NewProduct.js';
+import Dashboard from './App/pages/Dashboard.js';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
         <Route path='/foods' component={FoodList}/>
         <Route path='/food/:id' component={Food}/>
         <Route path='/product/new/:id' component={NewProduct}/>
+        <Route path='/home' component={Dashboard}/>
       </Switch>
     </div>
   )
