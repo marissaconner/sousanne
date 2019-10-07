@@ -24,6 +24,11 @@ class FoodList extends Component {
     return (
     <div>
       <h1>Foods List</h1> 
+      <form>
+        <input type="text" placeholder="Search..." class="search" />
+        <button>Go</button>
+      </form>
+
       <ul>
         {foods.map(food => <li>
           <a href={`food/${food.id}`}>
