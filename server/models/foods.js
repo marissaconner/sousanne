@@ -18,6 +18,7 @@ module.exports = function( sequelize, DataTypes ) {
     models.Food.belongsToMany( Food, { as: 'components', foreignKey: 'Food' , through: 'b_foods_self' } );
     models.Food.hasOne(Food, { as: 'parent' } );
     models.Food.hasMany( models.Ingredient );
+    models.Food.hasMany( models.Product );
   }
   
   return Food;
