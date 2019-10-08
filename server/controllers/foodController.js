@@ -128,15 +128,7 @@ module.exports = {
     console.log( "Get Food");
     var food = {};
     var products = [];
-    const input = req.params.food;
-    var safeinput = null;
-    if( isNaN( input ) ){
-      safeinput = input.replace( /[^\w\s]/gi, '' );
-    }
-    else {
-      safeinput = input;
-    }
-
+    const safeinput = cleanInput( req.params.food );
     Food.findOne({
       where: {
         [Op.or]: [
