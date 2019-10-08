@@ -6,6 +6,8 @@ class FoodList extends Component {
     this.state = {
       foods: []
     }
+
+    this.searchFoods = this.searchFoods.bind(this);
   }
 
   componentDidMount(){
@@ -19,13 +21,26 @@ class FoodList extends Component {
     .then( foods => this.setState({ foods }) )
   };
 
+  searchFoods = e => {
+    const query = e.target.value;
+    console.log("Searching for foods", query );
+    fetch('api/search/food/' + query )
+    .then( res => res.json())
+    .then( foods => this.setState({foods}))
+  };
+
   render() {
     const foods = this.state.foods;
     return (
     <div>
       <h1>Foods List</h1> 
       <form>
-        <input type="text" placeholder="Search..." class="search" />
+        <input 
+          type="text" 
+          placeholder="Search..." 
+          class="search"
+          onChange = {this.searchFoods}
+        />
         <button>Go</button>
       </form>
 
