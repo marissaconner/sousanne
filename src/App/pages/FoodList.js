@@ -49,23 +49,28 @@ class FoodList extends Component {
     <div>
       <h1>Foods List</h1> 
       <form>
-        <input 
-          type="text" 
-          placeholder="Search..." 
-          class="search"
-          value={this.state.searchString}
-          onChange = {this.searchFoods}
-        />
-        <span className='button transparent' onClick = {this.clearSearch} >&times;</span>
-        <button>Go</button>
+        <div className='search'>
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            value={this.state.searchString}
+            onChange = {this.searchFoods}
+          />
+          <div className='search__buttonblock'>
+            <span className='button button--textonly' onClick = {this.clearSearch} >&times;</span>
+            <button className='button--textonly'>Go</button>
+          </div>
+        </div>
       </form>
 
       <ul>
-        {foods.map(food => <li>
+        {foods.map(food => 
           <a href={`food/${food.id}`}>
-          {food.name}
+            <li>
+              {food.name}
+            </li>
           </a>
-       </li>)}
+        )}
       </ul>
     </div>
     );
