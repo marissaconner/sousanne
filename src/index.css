@@ -376,11 +376,12 @@ button,
   -webkit-transition: 0.25s ease-in-out;
 }
 
-.button.textonly,
-.button.textonly:hover,
-.button.textonly:focus,
-.button.textonly:active {
+.button--textonly,
+.button--textonly:hover,
+.button--textonly:focus,
+.button--textonly:active {
   background-color: transparent;
+  border: none;
 }
 
 button:hover,

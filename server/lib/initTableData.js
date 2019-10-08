@@ -185,7 +185,7 @@ module.exports = function( models ) {
             name: 'Cheese'
           },
           {
-            name: 'Cow Milk'
+            name: 'Milk'
           }
         ]
       },
@@ -267,6 +267,6 @@ module.exports = function( models ) {
       }
     }
   }
-
+  console.log("Init");
   addfoods( ingredients );
 }
