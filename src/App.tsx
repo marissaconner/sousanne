@@ -2,16 +2,22 @@ import React, { useState } from 'react'
 
 function App() {
   const [list, setList] = useState<{name: string}[]>([])
+  const [name, setName] = useState<string>("")
 
-  const handleAdd = function() {
-    const newItem = {"name" : "Entry"}
+  const handleAdd = function() { 
+    const newItem = {"name" : name}
     setList(state => [...state, newItem])
+    setName("")
   }
 
   const handleRemove = function(index: number) {
     const newList = [...list]
     newList.splice(index,1)
     setList(newList)
+  }
+
+  const onInputNewEntry = function(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setName(e.target.value)
   }
 
   return (
@@ -35,6 +41,15 @@ function App() {
             </li>
           )}
         </ul>
+
+        <form>
+          <input
+            type="text"
+            value={name}
+            id="listBuilder_newEntry"
+            onChange={onInputNewEntry}
+          />
+        </form>
 
         <button
           id="add_button"
