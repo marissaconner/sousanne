@@ -1,33 +1,48 @@
 import React, { useState } from 'react'
 
 function App() {
-  const [list, setList] = useState<{name: string}[]>([])
+  const [list, setList] = useState<{name: string, editing: boolean}[]>([])
   const [name, setName] = useState<string>("")
+  const [newName, setNewName] = useState<string>("")
+  const [newNameValid, setNewNameValid] = useState<boolean>(false)
   const [nameValid, setNameValid] = useState<boolean>(false)
 
-  const handleAdd = function() {
+  const handleAdd = function () {
     if (nameValid) {
-      const newItem = {"name" : name, strikethrough: false}
+      const newItem = {"name" : name, editing: false}
       setList(state => [...state, newItem])
       setName("")
       setNameValid(false)
     }
   }
 
-  const handleRemove = function(index: number) {
+  const handleRemove = function (index: number) {
     const newList = [...list]
     newList.splice(index,1)
     setList(newList)
   }
 
-  const validateNewEntry = function(value: string) {
-    const isValid = value.length >= 1
-    setNameValid(isValid)
+  const toggleEdit = function (index: number) {
+    const newList = [...list]
+    newList[index].editing = !newList[index].editing
+    setList(newList)
   }
 
-  const onInputNewEntry = function(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  const saveEdit = function (index: number) {
+    const newList = [...list]
+    newList[index].name = newName
+    setNewName("")
+    setList(newList)
+    toggleEdit(index)
+  }
+
+  const onInputNewEntry = function (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setName(e.target.value)
-    validateNewEntry(e.target.value)
+    setNameValid(e.target.value.length >= 1)
+  }
+  const onInputEditEntry = function (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setNewName(e.target.value)
+    setNameValid(e.target.value.length >= 1)
   }
 
   return (
@@ -50,6 +65,32 @@ function App() {
               >
                 {item.name}
               </label>
+              {item.editing ? 
+                <input
+                  type="text"
+                  value={newName}
+                  id={`item-renamer-${idx}`}
+                  onChange={onInputEditEntry}
+                />
+                :
+                ""
+              }
+              { item.editing ? 
+                <button
+                  id={`edit-item-${idx}`}
+                  onClick={() => saveEdit(idx)}
+                >
+                  Save
+                </button>
+                :
+                <button
+                  id={`edit-item-${idx}`}
+                  onClick={() => toggleEdit(idx)}
+                >
+                  Edit
+                </button>
+              }
+
               <button
                 id={`delete-item-${idx}`}
                 onClick={() => handleRemove(idx)}
@@ -62,7 +103,7 @@ function App() {
 
         <form>
           <fieldset>
-            <legend>Add An Item</legend>
+            <legend>New Item</legend>
             <input
               type="text"
               value={name}
@@ -76,7 +117,7 @@ function App() {
           id="add_button"
           onClick={() => handleAdd()}
         >
-          Add Item
+          Add
         </button>
       </div>
     </div>
