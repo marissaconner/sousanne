@@ -2,10 +2,16 @@ import React, {Component} from 'react';
 
 class App extends Component {
   render() {
-
-  const App = () => (
+    const App = () => (
       <div>
-        Henlo
+        <h1>The List!</h1>
+
+        <div id="listbuilder">
+        </div>
+
+        <button id="add_button">
+          Add Item
+        </button>
       </div>
     )
 
