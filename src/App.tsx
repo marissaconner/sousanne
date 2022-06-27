@@ -1,24 +1,33 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react'
 
-class App extends Component {
-  render() {
-    const App = () => (
-      <div>
-        <h1>The List!</h1>
+function App() {
+  // interface IList {name: string}[]
+  const [list, setList] = useState<{name: string}[]>([])
 
-        <div id="listbuilder">
-        </div>
+  const handleAdd = function() {
+    const newItem = {"name" : "Entry"}
+    setList(state => [...state, newItem])
+  }
 
-        <button id="add_button">
+  return (
+    <div>
+      <h1>The List!</h1>
+      <div id="listbuilder">
+        <ul>
+          {list.map((item, key) =>
+            <li key={key}>{item.name}</li>
+          )}
+        </ul>
+
+        <button
+          id="add_button"
+          onClick={() => handleAdd()}
+        >
           Add Item
         </button>
       </div>
-    )
-
-    return (
-      <App />
-    );
-  }
+    </div>
+  )
 }
 
 export default App;
