@@ -3,11 +3,15 @@ import React, { useState } from 'react'
 function App() {
   const [list, setList] = useState<{name: string}[]>([])
   const [name, setName] = useState<string>("")
+  const [nameValid, setNameValid] = useState<boolean>(false)
 
-  const handleAdd = function() { 
-    const newItem = {"name" : name}
-    setList(state => [...state, newItem])
-    setName("")
+  const handleAdd = function() {
+    if (nameValid) {
+      const newItem = {"name" : name, strikethrough: false}
+      setList(state => [...state, newItem])
+      setName("")
+      setNameValid(false)
+    }
   }
 
   const handleRemove = function(index: number) {
@@ -16,8 +20,14 @@ function App() {
     setList(newList)
   }
 
+  const validateNewEntry = function(value: string) {
+    const isValid = value.length >= 1
+    setNameValid(isValid)
+  }
+
   const onInputNewEntry = function(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setName(e.target.value)
+    validateNewEntry(e.target.value)
   }
 
   return (
@@ -30,10 +40,18 @@ function App() {
               key={idx}
               id={`list-item-${idx}`}
             >
-              <span>
+              <input
+                type="checkbox"
+                id={`checkbox-item-${idx}`}
+              >
+              </input>
+              <label
+                htmlFor={`checkbox-item-${idx}`}
+              >
                 {item.name}
-              </span>
+              </label>
               <button
+                id={`delete-item-${idx}`}
                 onClick={() => handleRemove(idx)}
               >
                 &times;
@@ -43,12 +61,15 @@ function App() {
         </ul>
 
         <form>
-          <input
-            type="text"
-            value={name}
-            id="listBuilder_newEntry"
-            onChange={onInputNewEntry}
-          />
+          <fieldset>
+            <legend>Add An Item</legend>
+            <input
+              type="text"
+              value={name}
+              id="listBuilder_newEntry"
+              onChange={onInputNewEntry}
+            />
+          </fieldset>
         </form>
 
         <button
