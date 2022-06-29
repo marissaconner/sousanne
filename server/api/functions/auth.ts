@@ -22,7 +22,6 @@ export const auth = {
     return result
   },
   getUserByCredentials: async function (email: string, passwordHash: string) {
-    console.error("I am running, GUBC")
     const pool = await db.connect()
     const sql = 'SELECT id FROM users WHERE email=$1 AND password=$2'
     const values = [email, passwordHash]

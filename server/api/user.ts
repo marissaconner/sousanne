@@ -33,7 +33,8 @@ userRoutes.post('/login', async (req: Request, res: Response) => {
     auth.updateUserSession(userId, sessionHash)
     res.cookie('sousannesession', sessionHash)
     res.cookie('sousanneuser', userId)
-    res.redirect(301, '/home')
+    const data = {sousanneSession: sessionHash, sousanneUser: userId}
+    res.status(200).send(data)
   }
 })
 

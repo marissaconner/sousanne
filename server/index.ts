@@ -35,13 +35,13 @@ app.get('/*', function (req: Express.Request, res: Express.Response) {
   res.sendFile(path.join(__dirname+'/../public/index.html'))
 })
 
-app.use(cors({
-    methods: 'GET, POST, OPTIONS',
-    origin: '*',
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'],
-    preflightContinue: false,
-    credentials: true
-}))
+app
+  .use(cors({
+    methods: 'GET, POST, DELETE, PUT, PATCH, OPTIONS',
+    origin: 'http://localhost:3000',
+    allowedHeaders: ['Access-Control-Allow-Origin', 'Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'],
+  })
+)
 
 app.use('/api/user', userRoutes)
 app.listen(port)

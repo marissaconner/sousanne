@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
+import { Navigate } from 'react-router-dom';
 
-function Authenticate() {
+function Authenticate () {
 
   const validateEmail = function () {
     setEmailError("")
@@ -32,8 +34,9 @@ function Authenticate() {
       url: 'http://localhost:5000/api/user/login',
       data: { email, password }
     })
-      .then((response) => {
-        console.log(response)
+      .then((res) => {
+        localStorage.setItem('tokens', JSON.stringify(res.data))
+        setLoggedIn(true)
       })
       .catch((err) => {
         setEmailError("That email or password doesn't look right.")
@@ -60,6 +63,7 @@ function Authenticate() {
   const [validEmail, setValidEmail] = useState<boolean>(false)
   const [validPassword, setValidPassword] = useState<boolean>(false)
   const [emailError, setEmailError] = useState<string>("")
+  const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
   const emailErrorMessages = function () {
     if (emailError) {
@@ -73,6 +77,7 @@ function Authenticate() {
 
   return (
     <div>
+      { loggedIn ? <Navigate to="/home" /> : '' }
       <form noValidate>
         <fieldset>
           <legend>Sign Up</legend>
