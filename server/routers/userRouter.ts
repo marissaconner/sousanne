@@ -19,7 +19,8 @@ userRouter.post('/new', async (req: Request, res: Response) => {
   const values = [req.body.email, req.body.password]
   pool.query(text, values, (err: Error, result: QueryResult<any>) => {
     if (err) {
-       res.status(500).send(err)
+      console.error(err)
+      res.status(500).send(err)
     } else {
       res.status(200).send(result)
     }
