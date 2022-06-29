@@ -25,10 +25,22 @@ function App() {
     validatePassword()
   }
 
-  const onSubmit = function (e: React.FormEvent) {
-    // /* eslint-disable no-debugger */
-    // debugger
-    // /* eslint-enable no-debugger */
+  const onLogin = function (e: React.FormEvent) {
+    e.preventDefault()
+    axios({
+      method: 'post',
+      url: 'http://localhost:5000/api/user/login',
+      data: { email, password }
+    })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        setEmailError("That email or password doesn't look right.")
+      })
+  }
+
+  const onSignup = function (e: React.FormEvent) {
     e.preventDefault()
     axios({
       method: 'post',
@@ -61,7 +73,7 @@ function App() {
 
   return (
     <div>
-      <form noValidate onSubmit={(e) => {onSubmit(e)}}>
+      <form noValidate>
         <fieldset>
           <legend>Sign Up</legend>
           <label
@@ -92,7 +104,8 @@ function App() {
           >
           </input>
         </fieldset>
-        <input type="submit" value="Sign Up"/>
+        <input type="submit" value="Sign Up" onClick={(e) => {onSignup(e)}} />
+        <input type="submit" value="Log In" onClick={(e) => {onLogin(e)}} />
       </form>
     </div>
   )

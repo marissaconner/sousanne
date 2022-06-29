@@ -6,7 +6,7 @@ const crypto = require('crypto')
  * @param {string} [salt]  
  * @returns {string} with the hashed value.
  */
-const createHash = function (data: string, salt?: string) {
+export const createHash = function (data: string, salt?: string) {
   let sum = crypto.createHash('sha256')
   sum.update(data + salt)
   return sum.digest('hex')
@@ -18,9 +18,9 @@ const createHash = function (data: string, salt?: string) {
  * @param {string} compareTo
  * @param {string} [salt]
  */
-const compareHash = function (input: string, savedHash: string, salt?: string) {
-  const hashedAttempt = createHash(input)
-  return savedHash === hashedAttempt
+export const compareHash = function (input: string, compareTo: string, salt?: string) {
+  const hashedAttempt = createHash(input, salt)
+  return compareTo === hashedAttempt
 }
 
 export default createHash
