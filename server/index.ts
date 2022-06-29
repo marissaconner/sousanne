@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import path from 'path'
 import cors from 'cors'
 import { Pool } from 'pg'
-import userRouter from './routers/userRouter'
+import userRoutes from './api/user'
 
 const port = process.env.PORT || 5000
 const router = Express.Router()
@@ -41,9 +41,9 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'],
     preflightContinue: false,
     credentials: true
-}));
+}))
 
-app.use('/api/user', userRouter)
+app.use('/api/user', userRoutes)
 app.listen(port)
 
 console.log('App is listening on port ' + port)
