@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 function App() {
 
@@ -6,43 +7,42 @@ function App() {
     const regex = /^([\w.%+-]+)@([\w-]+).([\w]{2,})$/i
     const isValid = email.match(regex) !== null
     setValidEmail(isValid)
-    // TODO: Check that the email doesn't already exist.
   }
 
   const validatePassword = function () {
-    setValidPassword(password.length >= 7)
-  }
-
-  const validateForm = function () {
-    validateEmail()
-    validatePassword()
-    setValidForm(validEmail && validPassword)
+    const isValid = password.length > 6
+    setValidPassword(isValid)
   }
 
   const onInputEmail = function (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setEmail(e.target.value)
+    validateEmail()
   }
 
   const onInputPassword = function (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setPassword(e.target.value)
+    validatePassword()
   }
 
   const onSubmit = function (e: React.FormEvent) {
+    // /* eslint-disable no-debugger */
+    // debugger
+    // /* eslint-enable no-debugger */
     e.preventDefault()
-    setSubmittingForm(true)
-    validateForm()
-    if (validForm) {
-      console.log("Beam that shit up")
-    }
-    setSubmittingForm(false)
+    axios({
+      method: 'post',
+      url: 'http://localhost:5000/api/user/new',
+      data: { email, password }
+    })
+      .then((response) => {
+        console.log(response)
+      })
   }
 
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [validEmail, setValidEmail] = useState<boolean>(false)
   const [validPassword, setValidPassword] = useState<boolean>(false)
-  const [validForm, setValidForm] = useState<boolean>(false)
-  const [submittingForm, setSubmittingForm] = useState<boolean>(false)
 
   return (
     <div>
@@ -55,6 +55,7 @@ function App() {
             Email
           </label>
           <input
+            autoComplete="email"
             value={email}
             id="signup_email"
             type="email"
@@ -68,6 +69,7 @@ function App() {
             Password
           </label>
           <input
+            autoComplete="password"
             value={password}
             id="signup_password"
             type="password"
