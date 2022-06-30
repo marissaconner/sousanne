@@ -22,7 +22,7 @@ export const Home = (props: HomeProps) => {
   return (
     <div>
       { loggedOut ? <Navigate to="/login" /> : "" }
-      Home screen
+      <a href="/lists">Shopping Lists</a>
       <button onClick = {() => {logOut()}}>
         Log Out
       </button>

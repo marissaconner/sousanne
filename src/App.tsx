@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { Component, useState } from 'react'
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom'
 import Authenticate from './pages/Authenticate'
 import { Home } from './pages/Home'
+import Lists from './pages/Lists'
 import NotFound from './pages/NotFound'
 import axios from 'axios'
 axios.defaults.withCredentials = true
@@ -56,23 +57,39 @@ function App() {
       })
   }
 
+  function PrivateOutlet() {
+    const isAuth = auth.loggedIn;
+    return isAuth ? <Outlet /> : <Navigate to="/login" />;
+  }
+  // TODO later: https://www.robinwieruch.de/react-router-private-routes/
+
   return (
     <Routes>
       <Route
         path="/login"
         element={<Authenticate onLogIn={logIn} />}
       />
-      {auth.loggedIn ?
+      { auth.loggedIn ?
         <Route
-          path ="/home"
+          path="/home"
           element={<Home onLogOut={logOut} />}
-        />
+        >
+        </Route>
         :
-        ""
+        ''
+      }
+      { auth.loggedIn ?
+        <Route
+          path="/lists"
+          element={<Lists />}
+        >
+        </Route>
+        :
+        ''
       }
       <Route
         path="*"
-        element={<NotFound />}
+        element={<Authenticate onLogIn={logIn} />}
       />
     </Routes>
   )
