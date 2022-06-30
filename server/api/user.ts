@@ -6,10 +6,6 @@ import { auth } from './database/auth'
 
 const userRoutes = Express.Router()
 
-userRoutes.get('/', async (req: Request, res: Response) => {
-  res.send('User router!')
-})
-
 userRoutes.post('/new', async (req: Request, res: Response) => {
   const email = req.body.email.replace(/[^a-zA-Z0-9@._-]/gi, '')
   const hashedPassword = createHash(req.body.password)

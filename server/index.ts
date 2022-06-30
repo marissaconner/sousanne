@@ -5,6 +5,7 @@ import path from 'path'
 import cors from 'cors'
 import { Pool } from 'pg'
 import userRoutes from './api/user'
+import listRoutes from './api/list'
 
 const port = process.env.PORT || 5000
 const router = Express.Router()
@@ -38,6 +39,7 @@ app
   })
 )
 app.use('/api/user', userRoutes)
+app.use('/api/list', listRoutes)
 
 app.use(Express.static(path.join(__dirname, '/../build')))
 

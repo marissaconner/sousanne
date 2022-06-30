@@ -5,11 +5,13 @@ export const list = {
   create: async function (name: string, userId: number) {
     const pool = await db.connect()
     const sql = `
-      INSERT INTO lists (name, user_id)
+      INSERT INTO shoppinglists (name, user_id)
       VALUES ($1, $2)
       RETURNING id
     `
     const values = [name, userId]
+    console.log(name)
+    console.log(userId)
     const result = await pool
       .query(sql, values)
         .then((data: QueryResult<any>) => {
@@ -23,7 +25,7 @@ export const list = {
   },
   selectById: async function (id: number) {
     const pool = await db.connect()
-    const sql = 'SELECT id FROM lists WHERE id=$1'
+    const sql = 'SELECT id FROM shoppinglists WHERE id=$1'
     const values = [id]
     const result = await pool
       .query(sql, values)
@@ -43,14 +45,14 @@ export const list = {
     const pool = await db.connect()
     const sql = `
       SELECT *
-      FROM lists
+      FROM shoppinglists
       WHERE
       user_id=$1
     `
     const values = [userId]
     const result = await pool
       .query(sql, values)
-        .then(() => {
+        .then((data: QueryResult<any>) => {
           return data.rows
         })
         .catch((err: Error) => {
@@ -59,10 +61,9 @@ export const list = {
     pool.release()
     return result
   },
-  ,
-  delete: async function (id: number) {
+  deleteList: async function (id: number) {
     const pool = await db.connect()
-    const sql = `DELETE from LISTS where id = $1`
+    const sql = `DELETE FROM shoppinglists where id = $1`
     const values = [id]
     const result = await pool
       .query(sql, values)
@@ -77,4 +78,4 @@ export const list = {
   }
 }
 
-export default auth
+export default list
