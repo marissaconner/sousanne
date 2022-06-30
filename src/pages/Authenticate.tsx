@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import axios from 'axios'
 import { Navigate } from 'react-router-dom';
 
-function Authenticate () {
+interface AuthProps {
+  onLogIn: (data: Record<string, unknown>) => void
+}
 
+export const Authenticate = (props: AuthProps) => {
   const validateEmail = function () {
     setEmailError("")
     const regex = /^([\w.%+-]+)@([\w-]+).([\w]{2,})$/i
@@ -27,18 +29,20 @@ function Authenticate () {
     validatePassword()
   }
 
-  const onLogin = function (e: React.FormEvent) {
+  const logIn = function (e: React.FormEvent) {
     e.preventDefault()
     axios({
       method: 'post',
-      url: 'http://localhost:5000/api/user/login',
+      url: '/api/user/login',
       data: { email, password }
     })
       .then((res) => {
-        localStorage.setItem('tokens', JSON.stringify(res.data))
         setLoggedIn(true)
+        // res.data: {"sousanne":"...","sousanneId":20}
+        props.onLogIn(res.data)
       })
       .catch((err) => {
+        console.error(err)
         setEmailError("That email or password doesn't look right.")
       })
   }
@@ -47,13 +51,14 @@ function Authenticate () {
     e.preventDefault()
     axios({
       method: 'post',
-      url: 'http://localhost:5000/api/user/new',
+      url: '/api/user/new',
       data: { email, password }
     })
       .then((response) => {
         console.log(response)
       })
       .catch((err) => {
+        console.error(err)
         setEmailError("This email address already exists.")
       })
   }
@@ -110,7 +115,7 @@ function Authenticate () {
           </input>
         </fieldset>
         <input type="submit" value="Sign Up" onClick={(e) => {onSignup(e)}} />
-        <input type="submit" value="Log In" onClick={(e) => {onLogin(e)}} />
+        <input type="submit" value="Log In" onClick={(e) => {logIn(e)}} />
       </form>
     </div>
   )

@@ -1,5 +1,6 @@
 import Express from 'express'
 import bodyParser from 'body-parser'
+import cookieParser from './utils/cookieParser'
 import path from 'path'
 import cors from 'cors'
 import { Pool } from 'pg'
@@ -22,28 +23,29 @@ export const db = new Pool(pgConfig)
 let app: Express.Application | undefined = undefined
 app = Express()
 app.use(bodyParser.json())
-app.use(Express.urlencoded({extended: true})) 
-app.use(Express.static(path.join(__dirname, '/../build')))  
-
+app.use(Express.urlencoded({extended: true}))
+app.use(cookieParser)
 app.use((req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
-  console.log(`Incoming ${req.method} request to ${req.path}.`)
+  console.log(`Incoming ${req.method} request to ${req.path}`)
   next()
 })
-
-app.get('/*', function (req: Express.Request, res: Express.Response) {
-  console.log(`Catchall route recieved: ${req.path}.`)
-  res.sendFile(path.join(__dirname+'/../public/index.html'))
-})
-
 app
   .use(cors({
+    credentials: true,
     methods: 'GET, POST, DELETE, PUT, PATCH, OPTIONS',
     origin: 'http://localhost:3000',
     allowedHeaders: ['Access-Control-Allow-Origin', 'Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'],
   })
 )
-
 app.use('/api/user', userRoutes)
+
+app.use(Express.static(path.join(__dirname, '/../build')))
+
+app.get('*', function (req: Express.Request, res: Express.Response) {
+  console.log(`Catchall route recieved: ${req.path}.`)
+  res.sendFile(path.join(__dirname+'/../public/index.html'))
+})
+
 app.listen(port)
 
 console.log('App is listening on port ' + port)

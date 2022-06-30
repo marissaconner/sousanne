@@ -60,22 +60,42 @@ export const auth = {
     pool.release()
     return result
   },
-  getUserBySession: async function (sessionHash: string) {
+  confirmUserSession: async function (sessionHash: string, id: number) {
     const pool = await db.connect()
     const sql = `
       SELECT id
       FROM users
       WHERE
       session_hash=$1
+      AND
+      id=$2
     `
-    const values = [sessionHash]
+    const values = [sessionHash, id]
     const result = await pool
       .query(sql, values)
-        .then(() => {
-          return {hash: sessionHash}
+        .then((data: QueryResult<any>) => {
+          if (data.rows.length === 1) {
+            return data.rows[0]
+          }
+          return { error: 'No such user with this login information.' }
         })
         .catch((err: Error) => {
           return { error: 'Error obtaining a user with that session hash.' }
+        })
+      pool.release()
+      return result
+  },
+  clearUserSession: async function (sessionHash: string, id: number) {
+    const pool = await db.connect()
+    const sql = `UPDATE users SET session_hash = null WHERE id = $2 AND session_hash = $1`
+    const values = [sessionHash, id]
+    const result = await pool
+      .query(sql, values)
+        .then(() => {
+          return { error: false }
+        })
+        .catch((err: Error) => {
+          return { error: 'Error logging out.' }
         })
       pool.release()
       return result

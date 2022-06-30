@@ -6,14 +6,13 @@
   "scripts": {
     "start": "react-scripts start && node server/index.js",
     "build": "tsc",
-    "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000",
   "author": "Marissa Conner",
   "license": "ISC",
   "dependencies": {
+    "@types/cookie-parser": "^1.4.3",
     "axios": "^0.27.2",
-    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "pg": "^8.7.3",
