@@ -16,5 +16,5 @@ CREATE TABLE IF NOT EXISTS shoppinglistitems (
     name TEXT NOT NULL,
     count INT default 1,
     obtained BOOLEAN default FALSE,
-    list_id INT REFERENCES shoppinglists(id),
+    list_id INT REFERENCES shoppinglists(id) ON DELETE CASCADE
 );
