@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function List() {
+function ListBuilder() {
   const [list, setList] = useState<{name: string, editing: boolean}[]>([])
   const [name, setName] = useState<string>("")
   const [newName, setNewName] = useState<string>("")
@@ -121,4 +121,4 @@ function List() {
   )
 }
 
-export default List;
+export default ListBuilder;

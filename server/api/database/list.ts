@@ -10,8 +10,6 @@ export const list = {
       RETURNING id
     `
     const values = [name, userId]
-    console.log(name)
-    console.log(userId)
     const result = await pool
       .query(sql, values)
         .then((data: QueryResult<any>) => {
@@ -56,7 +54,7 @@ export const list = {
           return data.rows
         })
         .catch((err: Error) => {
-          return { error: 'Error getting lists.' }
+          return false
         })
     pool.release()
     return result
