@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom'
+import { Button, TextInput } from '@marissaconner/sousanne-component-library'
 
 interface AuthProps {
   onLogIn: (data: Record<string, unknown>) => void
@@ -31,14 +32,18 @@ export const Authenticate = (props: AuthProps) => {
 
   const logIn = function (e: React.FormEvent) {
     e.preventDefault()
+    e.stopPropagation()
+    //e.stopImmediatePropagation()
+    console.error("Log in is running.")
     axios({
       method: 'post',
       url: '/api/user/login',
       data: { email, password }
     })
       .then((res) => {
+        console.error('I done did it')
         setLoggedIn(true)
-        // res.data: {"sousanne":"...","sousanneId":20}
+        // res.data  {"sousanne":"...","sousanneId":20}
         props.onLogIn(res.data)
       })
       .catch((err) => {
@@ -49,6 +54,9 @@ export const Authenticate = (props: AuthProps) => {
 
   const onSignup = function (e: React.FormEvent) {
     e.preventDefault()
+    console.log("signup is running")
+    console.log(email)
+    console.log(password)
     axios({
       method: 'post',
       url: '/api/user/new',
@@ -70,14 +78,11 @@ export const Authenticate = (props: AuthProps) => {
   const [emailError, setEmailError] = useState<string>("")
   const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
-  const emailErrorMessages = function () {
-    if (emailError) {
-      return (
-        <p>
-          {emailError}
-        </p>
-      )
+  const emailStatus = function () {
+    if (!validEmail) {
+      return 'error'
     }
+    return 'default'
   }
 
   return (
@@ -86,36 +91,31 @@ export const Authenticate = (props: AuthProps) => {
       <form noValidate>
         <fieldset>
           <legend>Sign Up</legend>
-          <label
-            htmlFor="signup_email"
-          >
-            Email
-          </label>
-          <input
-            autoComplete="email"
-            value={email}
+          <TextInput
+            placeholderText="email@domain.com"
+            labelText="Email"
             id="signup_email"
-            type="email"
             onChange={(e) => {onInputEmail(e)}}
-          >
-          </input>
-          {emailErrorMessages()}
-          <label
-            htmlFor="signup_password"
-          >
-            Password
-          </label>
-          <input
-            autoComplete="password"
-            value={password}
+            status={emailStatus()}
+            errorText={emailError}
+          />
+          <TextInput
+            labelText="Password"
             id="signup_password"
-            type="password"
             onChange={(e) => {onInputPassword(e)}}
-          >
-          </input>
+          />
         </fieldset>
-        <input type="submit" value="Sign Up" onClick={(e) => {onSignup(e)}} />
-        <input type="submit" value="Log In" onClick={(e) => {logIn(e)}} />
+        <Button
+          onClick={(e) => {onSignup(e)}}
+        >
+          Sign Up
+        </Button>
+        <Button
+          type="submit"
+          onClick={(e) => {logIn(e)}}
+        >
+          Log In
+        </Button>
       </form>
     </div>
   )

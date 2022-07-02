@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Button, UList, TextInput } from '@marissaconner/sousanne-component-library'
 
 function ListBuilder() {
   const [list, setList] = useState<{name: string, editing: boolean}[]>([])
@@ -47,7 +48,7 @@ function ListBuilder() {
 
   return (
     <div id="listbuilder">
-      <ul>
+      <UList>
         {list.map((item, idx) =>
           <li
             key={idx}
@@ -64,9 +65,8 @@ function ListBuilder() {
               {item.name}
             </label>
             {item.editing ? 
-              <input
-                type="text"
-                value={newName}
+              <TextInput
+                labelText="Edit Item"
                 id={`item-renamer-${idx}`}
                 onChange={onInputEditEntry}
               />
@@ -74,49 +74,43 @@ function ListBuilder() {
               ""
             }
             { item.editing ? 
-              <button
-                id={`edit-item-${idx}`}
+              <Button
                 onClick={() => saveEdit(idx)}
               >
                 Save
-              </button>
+              </Button>
               :
-              <button
-                id={`edit-item-${idx}`}
+              <Button
                 onClick={() => toggleEdit(idx)}
               >
                 Edit
-              </button>
+              </Button>
             }
 
-            <button
-              id={`delete-item-${idx}`}
+            <Button
+              look="warning"
               onClick={() => handleRemove(idx)}
             >
               &times;
-            </button>
+            </Button>
           </li>
         )}
-      </ul>
+      </UList>
 
       <form>
-        <fieldset>
-          <legend>New Item</legend>
-          <input
-            type="text"
-            value={name}
-            id="listBuilder_newEntry"
-            onChange={onInputNewEntry}
-          />
-        </fieldset>
+        <TextInput
+          placeholderText="Milk"
+          labelText="New Item"
+          id="listBuilder_newEntry"
+          onChange={onInputNewEntry}
+        />
       </form>
 
-      <button
-        id="add_button"
+      <Button
         onClick={() => handleAdd()}
       >
         Add
-      </button>
+      </Button>
     </div>
   )
 }

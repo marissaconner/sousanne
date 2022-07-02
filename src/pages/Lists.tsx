@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import ListBuilder from '../components/ListBuilder'
+import { UList, TextInput, Button } from '@marissaconner/sousanne-component-library'
 function Lists() {
   const [newListName, setNewListName] = useState<string>('')
   const [lists, setLists] = useState<{ id: number, name: string }[]>([])
@@ -39,7 +40,7 @@ function Lists() {
   return (
     <div>
       <h1>Lists</h1>
-      <ul>
+      <UList>
         {lists.map((item, idx) =>
           <a
             key={idx}
@@ -50,17 +51,19 @@ function Lists() {
             </li>
           </a>
         )}
-      </ul>
+      </UList>
       <form>
-        <input
+        <TextInput
+          id="new-list-name"
+          labelText="List Name"
           onChange={(e) => {onNewListChange(e)}}
-          type="text"
         />
-        <input
+        <Button
           type="submit"
-          value="Create"
           onClick={(e) => submitList(e)}
-        />
+        >
+          Create
+        </Button>
       </form>
 
       <ListBuilder />

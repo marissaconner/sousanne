@@ -5,6 +5,7 @@ import { Home } from './pages/Home'
 import Lists from './pages/Lists'
 import NotFound from './pages/NotFound'
 import axios from 'axios'
+import '@marissaconner/sousanne-component-library/index.css'
 axios.defaults.withCredentials = true
 axios.defaults.baseURL = 'http://localhost:5000'
 
@@ -81,7 +82,10 @@ function App() {
       { auth.loggedIn ?
         <Route
           path="/lists"
-          element={<Lists />}
+          element={<>
+            <Lists />
+          </>
+          }
         >
         </Route>
         :
