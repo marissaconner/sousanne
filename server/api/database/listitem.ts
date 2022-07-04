@@ -1,29 +1,29 @@
 import { db } from '../../index'
 import { QueryResult } from 'pg'
 
-export const list = {
-  create: async function (name: string, userId: number) {
+export const listItem = {
+  create: async function (name: string, count: number = 1, listId: number) {
     const pool = await db.connect()
     const sql = `
-      INSERT INTO shoppinglists (name, user_id)
-      VALUES ($1, $2)
+      INSERT INTO shoppinglistitems (name, count, list_id)
+      VALUES ($1, $2, $3)
       RETURNING id
     `
-    const values = [name, userId]
+    const values = [name, count, listId]
     const result = await pool
       .query(sql, values)
         .then((data: QueryResult<any>) => {
           return data.rows[0]
         })
         .catch((err: Error) => {
-          return { error: 'An error occurred creating a new list.' }
+          return { error: 'An error occurred creating a new list item.' }
         })
     pool.release()
     return result
   },
   selectById: async function (id: number) {
     const pool = await db.connect()
-    const sql = 'SELECT id FROM shoppinglists WHERE id=$1'
+    const sql = 'SELECT id FROM shoppinglistitems WHERE id=$1'
     const values = [id]
     const result = await pool
       .query(sql, values)
@@ -31,23 +31,23 @@ export const list = {
           if (data.rows.length === 1) {
             return data.rows[0]
           }
-          return { error: 'No such list.' }
+          return { error: 'No such list item.' }
         })
         .catch((err: Error) => {
-          return { error: 'No such list.' }
+          return { error: 'No such list item.' }
         })
     pool.release()
     return result
   },
-  selectByUser: async function (userId: number) {
+  selectByList: async function (listId: number) {
     const pool = await db.connect()
     const sql = `
       SELECT *
-      FROM shoppinglists
+      FROM shoppinglistitems
       WHERE
-      user_id=$1
+      list_id=$1
     `
-    const values = [userId]
+    const values = [listId]
     const result = await pool
       .query(sql, values)
         .then((data: QueryResult<any>) => {
@@ -59,9 +59,9 @@ export const list = {
     pool.release()
     return result
   },
-  deleteList: async function (id: number) {
+  deleteListItem: async function (id: number) {
     const pool = await db.connect()
-    const sql = `DELETE FROM shoppinglists where id = $1`
+    const sql = `DELETE FROM shoppinglistitems where id = $1`
     const values = [id]
     const result = await pool
       .query(sql, values)
@@ -69,7 +69,7 @@ export const list = {
           return { error: false }
         })
         .catch((err: Error) => {
-          return { error: 'Error deleting list.' }
+          return { error: 'Error deleting item.' }
         })
       pool.release()
       return result
