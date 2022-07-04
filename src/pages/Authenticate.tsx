@@ -30,11 +30,7 @@ export const Authenticate = (props: AuthProps) => {
     validatePassword()
   }
 
-  const logIn = function (e: React.FormEvent) {
-    e.preventDefault()
-    e.stopPropagation()
-    //e.stopImmediatePropagation()
-    console.error("Log in is running.")
+  const logIn = function () {
     axios({
       method: 'post',
       url: '/api/user/login',
@@ -52,11 +48,7 @@ export const Authenticate = (props: AuthProps) => {
       })
   }
 
-  const onSignup = function (e: React.FormEvent) {
-    e.preventDefault()
-    console.log("signup is running")
-    console.log(email)
-    console.log(password)
+  const signUp = function () {
     axios({
       method: 'post',
       url: '/api/user/new',
@@ -106,13 +98,14 @@ export const Authenticate = (props: AuthProps) => {
           />
         </fieldset>
         <Button
-          onClick={(e) => {onSignup(e)}}
+          type="button"
+          onClick={signUp}
         >
           Sign Up
         </Button>
         <Button
-          type="submit"
-          onClick={(e) => {logIn(e)}}
+          type="button"
+          onClick={logIn}
         >
           Log In
         </Button>
